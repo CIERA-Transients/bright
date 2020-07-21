@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+  
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+{% block nav-search %}<a class="active" href="/products/">Products</a>{% endblock %}
+<h1>Add New Product</h1>
+
+{% crispy form %}
+{% endblock %}
