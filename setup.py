@@ -2,22 +2,22 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) YOURNAME (2019)
 #
-# This file is part of the marketplace python package.
+# This file is part of the bright python package.
 #
-# marketplace is free software: you can redistribute it and/or modify
+# bright is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# marketplace is distributed in the hope that it will be useful,
+# bright is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with marketplace.  If not, see <http://www.gnu.org/licenses/>.
+# along with bright.  If not, see <http://www.gnu.org/licenses/>.
 
-"""Setup the marketplace package
+"""Setup the bright package
 """
 
 from __future__ import print_function
@@ -101,8 +101,8 @@ extras_require = {
 packagenames = find_packages()
 
 # Executables go in a folder called bin
-PACKAGENAME = 'marketplace'
-DISTNAME = 'marketplace' #'YOUR DISTRIBTUION NAME (I.E. PIP INSTALL DISTNAME)' Generally good to be same as packagename
+PACKAGENAME = 'bright'
+DISTNAME = 'bright' #'YOUR DISTRIBTUION NAME (I.E. PIP INSTALL DISTNAME)' Generally good to be same as packagename
 AUTHOR = 'YOURNAME'
 AUTHOR_EMAIL = 'scottcoughlin2014@u.northwestern.edu'
 LICENSE = 'GPLv3+'

@@ -224,6 +224,6 @@ pseudoxml:
 
 .PHONY: apidoc
 apidoc:
-	sphinx-apidoc -o api/ ../marketplace --no-toc --separate --no-headings --force
+	sphinx-apidoc -o api/ ../bright --no-toc --separate --no-headings --force
 	@echo
 	@echo "APIdoc run is complete."

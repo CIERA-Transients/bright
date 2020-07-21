@@ -1,3 +1,3 @@
 include LICENSE README.md MANIFEST.in
 include versioneer.py
-include marketplace/_version.py
+include bright/_version.py

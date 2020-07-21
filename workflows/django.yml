@@ -27,4 +27,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test --settings=marketplace.dev_settings
+        python manage.py test --settings=bright.dev_settings

@@ -1,5 +1,5 @@
 ##################################
-Welcome to marketplace's documentation!
+Welcome to bright's documentation!
 ##################################
 
 
@@ -7,7 +7,7 @@ Welcome to marketplace's documentation!
 Package documentation
 *********************
 
-Please consult these pages for more details on using marketplace:
+Please consult these pages for more details on using bright:
 
 * :ref:`genindex`
 * :ref:`modindex`
