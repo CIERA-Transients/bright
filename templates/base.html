@@ -14,7 +14,7 @@
   </head>
   <body>
 
-<title>Wehrlegig Games</title>
+<title>Bright: Open GRB Catalogue</title>
 
 {% block nav %}
 {% load socialaccount %}
@@ -22,7 +22,8 @@
   <nav id="nav">
     {% with app_name=request.resolver_match.app_name %}
     <li><a {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %} href="/">Home</a></li>
-    <li><a {% if app_name == 'products' %}class="active"{% endif %} href="/products/">Products</a></li>
+    <li><a {% if app_name == 'aboutme' %}class="active"{% endif %} href="/aboutme/">About Me</a></li>
+    <li><a {% if app_name == 'grbs' %}class="active"{% endif %} href="/grbs/">GRBs</a></li>
     {% if user.is_authenticated %}
         <p>{{ user.username }}
         <p><a href="{% url 'account_logout' %}">Log out</a>

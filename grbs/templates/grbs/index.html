@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+  
+{% block content %}
+
+<a href="{% url 'grbs:add_grb' %}">Consider Adding a GRB</a>
+
+<br>
+<br>
+
+{% if alphabetical_grbs_list %}
+    <ul>
+    {% for grb in alphabetical_grbs_list %}
+        <li><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No grbs are available.</p>
+{% endif %}
+
+{% endblock %}

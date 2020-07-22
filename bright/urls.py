@@ -23,7 +23,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
-    path('products/', include('products.urls')),
+    path('grbs/', include('grbs.urls')),
     path('aboutme/', include('aboutme.urls')),
     path('accounts/', include('allauth.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
