@@ -16,10 +16,10 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
+# Quick-start development settings - unsuitable for grbion
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY WARNING: keep the secret key used in grbion secret!
 try:
     SECRET_KEY
 except NameError:
@@ -37,7 +37,7 @@ except NameError:
             Exception('Please create a %s file with random characters \
             to generate your secret key!' % SECRET_FILE)
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in grbion!
 DEBUG = False
 
 ALLOWED_HOSTS = []
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 
 
     # bright apps
-    'products.apps.ProductsConfig',
+    'grbs.apps.GRBConfig',
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'aboutme.apps.AboutmeConfig',

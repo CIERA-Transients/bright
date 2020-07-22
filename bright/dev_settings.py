@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 
 
     # bright apps
-    'products.apps.ProductsConfig',
+    'grbs.apps.GRBConfig',
     'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'aboutme.apps.AboutmeConfig',
