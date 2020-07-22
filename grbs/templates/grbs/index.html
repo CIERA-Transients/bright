@@ -2,6 +2,11 @@
   
 {% block content %}
 
+<a href="{% url 'grbs:add_grb' %}">Consider Adding a GRB</a>
+
+<br>
+<br>
+
 {% if alphabetical_grbs_list %}
     <ul>
     {% for grb in alphabetical_grbs_list %}
