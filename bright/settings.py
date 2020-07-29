@@ -40,7 +40,7 @@ except NameError:
 # SECURITY WARNING: don't run with debug turned on in grbion!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bright.ciera.northwestern.edu', '127.0.0.1']
 
 
 # Application definition
