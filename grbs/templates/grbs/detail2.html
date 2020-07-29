@@ -3,5 +3,12 @@
 {% block content %}
 
 <h1>{{ grb.grb_name }}</h1>
-{{ grb.grb_name |safe }}
+
+<li>GRB NAME: {{ grb.grb_name |safe }}</li>
+<li>GRB DESCRIPTION: {{ grb.description |safe }}</li>
+<li>RA: {{ grb.ra |safe }}</li>
+<li>DEC: {{ grb.dec |safe }}</li>
+<li>REDSHIFT: {{ grb.z |safe }}</li>
+<li>TAU: {{ grb.tau |safe }}</li>
+<li>SPECTROGRAM: <img src=/media/{{ grb.spectrogram }}/></li>
 {% endblock %}
