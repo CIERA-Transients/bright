@@ -21,5 +21,30 @@ class GRB(models.Model):
     dec = models.FloatField(
         null=True, blank=True, verbose_name='Declination', help_text='Declination, in degrees.'
     )
+    z = models.FloatField(
+        null=True, blank=True, verbose_name='Red Shift', help_text='Red Shift, in degrees.'
+    )
+    mass = models.FloatField(
+        null=True, blank=True, verbose_name='Mass', help_text='Mass, in degrees.'
+    )
+    age = models.FloatField(
+        null=True, blank=True, verbose_name='Age', help_text='Age, in degrees.'
+    )
+    Z_stellar = models.FloatField(
+        null=True, blank=True, verbose_name='Metallicity', help_text='Metallicity, in degrees.'
+    )
+    Z_gas = models.FloatField(
+        null=True, blank=True, verbose_name='Gas Metallicity', help_text='Gas Metallicity, in degrees.'
+    )
+    tau = models.FloatField(
+        null=True, blank=True, verbose_name='TAU', help_text='TAU, in degrees.'
+    )
+    AV = models.FloatField(
+        null=True, blank=True, verbose_name='AV', help_text='AV, in degrees.'
+    )
+    SFR = models.FloatField(
+        null=True, blank=True, verbose_name='SFR', help_text='SFR, in degrees.'
+    )
+    spectrogram = models.ImageField(upload_to='images/', null=True, blank=True, )
     def __str__(self):
         return self.grb_name

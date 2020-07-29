@@ -13,10 +13,10 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bright.settings')
 os.environ['HTTPS'] = "on"
-os.environ['GRAVITYSPYTOOLS_NAME'] = ""
-os.environ['GRAVITYSPYTOOLS_USER'] = ""
-os.environ['GRAVITYSPYTOOLS_PASSWORD'] = ""
-os.environ['GRAVITYSPYTOOLS_HOST'] = ""
-os.environ['GRAVITYSPYTOOLS_PORT'] = ""
+os.environ['BRIGHT_DATABASE_NAME'] = ""
+os.environ['BRIGHT_USER'] = ""
+os.environ['BRIGHT_PASSWORD'] = ""
+os.environ['BRIGHT_HOST'] = ""
+os.environ['BRIGHT_PORT'] = ""
 
 application = get_wsgi_application()
