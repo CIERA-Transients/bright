@@ -22,7 +22,7 @@ def function(request):
             return redirect(function_that_happens_at_url)
 
 def function_that_happens_at_url(request):
-    if request.user.is_authenticated:
+    if request.user.is_superuser:
         if request.method == 'POST':
             form = GRBForm(request.POST)
             if form.is_valid():
