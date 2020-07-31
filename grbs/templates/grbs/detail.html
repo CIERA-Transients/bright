@@ -3,5 +3,95 @@
 {% block content %}
 
 <h1>{{ grb.grb_name }}</h1>
-{{ grb.description |safe }}
+
+<br>
+
+
+<h2>Cornerplot</h2>
+<img src=/media/{{ grb.spectrogram }}
+
+<br>
+
+
+<h2>Metadata</h2>
+<table border="1" class="table table-striped" id="samples">
+    <thead>
+        <th>Attribute</th>
+        <th>Values</th>
+    </thead>
+    <tbody>
+        <tr style="text-align: left;">
+            <td>grb_name</td>
+            <td><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
+        </tr>
+        <tr style="text-align: left;">
+            <td>RA</td>
+            <td> {{ grb.ra }} </td>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>dec</td>
+            <td> {{ grb.dec }} </td>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>redshift</td>
+            <th> \({{grb.z}}^{ {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>t_90</td>
+            <th>{{grb.t_90}}</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>mass</td>
+            <th> \({{grb.mass}}^{ {{ grb.mass_err_upper }} }_{ {{ grb.mass_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>age</td>
+            <th> \({{grb.age}}^{ {{ grb.age_err_upper }} }_{ {{ grb.age_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>logzsol</td>
+            <th> \({{grb.logzsol}}^{ {{ grb.logzsol_err_upper }} }_{ {{ grb.logzsol_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>gas_logz</td>
+            <th>{{grb.gas_logz}}</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>dust1</td>
+            <th> \({{grb.dust1}}^{ {{ grb.dust1_err_upper }} }_{ {{ grb.dust1_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>dust2</td>
+            <th> \({{grb.dust2}}^{ {{ grb.dust2_err_upper }} }_{ {{ grb.dust2_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>gas_logu</td>
+            <th>{{grb.gas_logu}}</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>SFR</td>
+            <th> \({{grb.sfr}}^{ {{ grb.sfr_err_upper }} }_{ {{ grb.sfr_err_lower }} }\)</th>
+        </tr>
+
+        <tr style="text-align: left;">
+            <td>filters</td>
+            <th>{{grb.filters}}</th>
+        </tr>
+
+    </tbody>
+</table>
+</body>
+</html>
+
 {% endblock %}

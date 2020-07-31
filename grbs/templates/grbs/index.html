@@ -7,14 +7,61 @@
 <br>
 <br>
 
-{% if alphabetical_grbs_list %}
-    <ul>
-    {% for grb in alphabetical_grbs_list %}
-        <li><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No grbs are available.</p>
-{% endif %}
+<table border="1" class="table table-striped" id="samples">
+    <thead>
+        <tr style="text-align: right;">
+              <th>grb_name</th>
+              <th>RA</th>
+              <th>dec</th>
+              <th>redshift</th>
+              <th>t_90</th>
+              <th>mass</th>
+              <th>age</th>
+              <th>logzsol</th>
+              <th>gas_logz</th>
+              <th>dust1</th>
+              <th>dust2</th>
+              <th>gas_logu</th>
+              <th>SFR</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grb in alphabetical_grbs_list %}
+            <tr>
+                <td><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
+                <td> {{ grb.ra }} </td>
+                <td> {{ grb.dec }} </td>
+                <th> \({{grb.z}}^{ {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</th>
+                <th>{{grb.t_90}}</th>
+                <th> \({{grb.mass}}^{ {{ grb.mass_err_upper }} }_{ {{ grb.mass_err_lower }} }\)</th>
+                <th> \({{grb.age}}^{ {{ grb.age_err_upper }} }_{ {{ grb.age_err_lower }} }\)</th>
+                <th> \({{grb.logzsol}}^{ {{ grb.logzsol_err_upper }} }_{ {{ grb.logzsol_err_lower }} }\)</th>
+
+                <th>{{grb.gas_logz}}</th>
+                <th> \({{grb.dust1}}^{ {{ grb.dust1_err_upper }} }_{ {{ grb.dust1_err_lower }} }\)</th>
+                <th> \({{grb.dust2}}^{ {{ grb.dust2_err_upper }} }_{ {{ grb.dust2_err_lower }} }\)</th>
+
+                <th>{{grb.gas_logu}}</th>
+                <th> \({{grb.sfr}}^{ {{ grb.sfr_err_upper }} }_{ {{ grb.sfr_err_lower }} }\)</th>
+
+                </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#samples").fancyTable({
+            sortColumn:0,
+            pagination: true,
+            perPage:10,
+            globalSearch:true
+        });		
+    });
+</script>
+
+</body>
+</html>
 
 {% endblock %}
