@@ -8,10 +8,21 @@
 
 
 <h2>Cornerplot</h2>
-<img src=/media/{{ grb.spectrogram }}
-
+<img src=/media/{{ grb.cornerplot }}
 <br>
 
+<h2>SED</h2>
+<img src=/media/{{ grb.sed }}
+<br>
+
+
+<h2>Samples</h2>
+<a href="/media/{{ grb.samples }}">Download MCMC Samples</a>
+<br>
+
+<h2>Download Metadata</h2>
+<a href="/media/{{ grb.json_metadata }}">Download Metadata</a>
+<br>
 
 <h2>Metadata</h2>
 <table border="1" class="table table-striped" id="samples">
@@ -82,11 +93,6 @@
         <tr style="text-align: left;">
             <td>SFR</td>
             <th> \({{grb.sfr}}^{ {{ grb.sfr_err_upper }} }_{ {{ grb.sfr_err_lower }} }\)</th>
-        </tr>
-
-        <tr style="text-align: left;">
-            <td>filters</td>
-            <th>{{grb.filters}}</th>
         </tr>
 
     </tbody>
