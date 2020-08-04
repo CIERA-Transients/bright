@@ -4,7 +4,6 @@ from django.db import models
 from .validators import validate_file_extension, validate_image_extension
 from django.contrib.postgres.fields import ArrayField
 
-
 # Create your models here.
 class GRB(models.Model):
     """Model that defines metadata about a grb
@@ -22,9 +21,14 @@ class GRB(models.Model):
     ra = models.CharField(max_length=20,
         null=True, blank=True, verbose_name='Right Ascension', help_text='Right Ascension, in degrees.'
     )
-
     dec = models.CharField(max_length=20,
         null=True, blank=True, verbose_name='Declination', help_text='Declination, in degrees.'
+    )
+    sky_location_source = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Telescope Name', help_text='Telescope from which sky location is derived'
+    )
+    sky_location_reference = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Reference', help_text='Reference for sky location information.'
     )
 
     z = models.FloatField(
@@ -109,14 +113,20 @@ class GRB(models.Model):
         null=True, blank=True, verbose_name='Star Formation Rate Lower Error', help_text='Star Formation Rate Lower Error'
     )
 
-    phot = ArrayField(models.FloatField())
-    phot_err_upper = ArrayField(models.FloatField())
-    phot_err_lower = ArrayField(models.FloatField())
+    phot = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
+    phot_err_upper = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
+    phot_err_lower = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
+    phot_source = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    phot_reference = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
 
-    filters = ArrayField(models.CharField(max_length=100))
+    filters = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True) 
 
-    spectrogram = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
+    cornerplot = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
 
-    samples = models.FileField(upload_to='samples/', null=True, default=None, validators=[validate_file_extension])
+    sed = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
+
+    samples = models.FileField(upload_to='samples/', null=True, blank=True, validators=[validate_file_extension])
+
+    json_metadata = models.FileField(upload_to='json/', null=True, blank=True, validators=[validate_file_extension])
     def __str__(self):
         return self.grb_name
