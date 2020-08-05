@@ -18,17 +18,78 @@ class GRB(models.Model):
 
     comments = RichTextField(help_text='Additional info about the GRB that may be of note')
 
-    ra = models.CharField(max_length=20,
-        null=True, blank=True, verbose_name='Right Ascension', help_text='Right Ascension, in degrees.'
+    ra_host = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Right Ascension of Host', help_text='Right Ascension, in degrees.'
     )
-    dec = models.CharField(max_length=20,
-        null=True, blank=True, verbose_name='Declination', help_text='Declination, in degrees.'
+    dec_host = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Declination of Host', help_text='Declination, in degrees.'
     )
-    sky_location_source = models.CharField(max_length=20,
-        null=True, blank=True, verbose_name='Telescope Name', help_text='Telescope from which sky location is derived'
+    tel_pos = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Telescope Position', help_text='Telescope from which sky location is derived'
     )
-    sky_location_reference = models.CharField(max_length=20,
+    tel_pos_ref = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Telescope Reference', help_text='Reference for sky location information.'
+    )
+
+    host_morphology = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Host Galaxy Morphology', help_text='Host galaxy Morphology.'
+    )
+
+    host_sf = models.CharField(max_length=20,
+        null=True, blank=True, verbose_name='Host Galaxy Star Formation', help_text='Host Galaxy Star Formation.'
+    )
+
+    t90 = models.FloatField(
+            null=True, blank=True, verbose_name='T 90', help_text='??'
+    )
+
+    t90_err_upper = models.FloatField(
+            null=True, blank=True, verbose_name='T 90', help_text='??'
+    )
+
+    t90_err_lower = models.FloatField(
+            null=True, blank=True, verbose_name='T 90', help_text='??'
+    )
+
+    fluence = models.FloatField(
+            null=True, blank=True, verbose_name='Fluence', help_text='??'
+    )
+    fluence_err_upper = models.FloatField(
+            null=True, blank=True, verbose_name='Fluence Upper Error', help_text='??'
+    )
+    fluence_err_lower = models.FloatField(
+            null=True, blank=True, verbose_name='Fluence Lower Error', help_text='??'
+    )
+
+    xray = models.CharField(max_length=3,
         null=True, blank=True, verbose_name='Reference', help_text='Reference for sky location information.'
+    )
+    opt = models.CharField(max_length=3,
+        null=True, blank=True, verbose_name='Reference', help_text='Reference for sky location information.'
+    )
+    radio = models.CharField(max_length=3,
+        null=True, blank=True, verbose_name='Reference', help_text='Reference for sky location information.'
+    )
+
+
+    offset = models.FloatField(
+        null=True, blank=True, verbose_name='Offset', help_text='Offset'
+    )
+    offset_err_upper = models.FloatField(
+        null=True, blank=True, verbose_name='Offset Upper Error', help_text='Offset Upper Error'
+    )
+    offset_err_lower = models.FloatField(
+        null=True, blank=True, verbose_name='Offset Lower Error', help_text='Offset Lower Error'
+    )
+
+    offset_kpc = models.FloatField(
+        null=True, blank=True, verbose_name='Offset KPC', help_text='Offset in KPC'
+    )
+    offset_kpc_err_upper = models.FloatField(
+        null=True, blank=True, verbose_name='Offset KPC Upper Error', help_text='Offset KPC Upper Error'
+    )
+    offset_kpc_err_lower = models.FloatField(
+        null=True, blank=True, verbose_name='Offset KPC Lower Error', help_text='Offset KPC Lower Error'
     )
 
     z = models.FloatField(
@@ -39,10 +100,6 @@ class GRB(models.Model):
     )
     z_err_lower = models.FloatField(
         null=True, blank=True, verbose_name='Red Shift Lower Error', help_text='Red Shift Lower Error'
-    )
-
-    t_90 = models.FloatField(
-            null=True, blank=True, verbose_name='T 90', help_text='??'
     )
 
     mass = models.FloatField(
@@ -73,10 +130,6 @@ class GRB(models.Model):
     )
     logzsol_err_lower = models.FloatField(
         null=True, blank=True, verbose_name='Log Solar Metallicity Lower Error', help_text='Log Solar Metallicity Lower Error'
-    )
-
-    gas_logz = models.FloatField(
-        null=True, blank=True, verbose_name='Log Gas Metallicity', help_text='Log Gas Metallicity.'
     )
 
     dust1 = models.FloatField(
@@ -114,19 +167,29 @@ class GRB(models.Model):
     )
 
     phot = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
-    phot_err_upper = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
-    phot_err_lower = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
-    phot_source = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
-    phot_reference = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    phot_err = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
+    phot_wave = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
+    telescopes = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    phot_refs = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    spec_tel = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    spec_ref = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    
 
     filters = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True) 
 
-    cornerplot = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
+    corner = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
 
     sed = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
 
-    samples = models.FileField(upload_to='samples/', null=True, blank=True, validators=[validate_file_extension])
+    color = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
+
+    h5 = models.FileField(upload_to='samples/', null=True, blank=True, validators=[validate_file_extension])
 
     json_metadata = models.FileField(upload_to='json/', null=True, blank=True, validators=[validate_file_extension])
     def __str__(self):
         return self.grb_name
+
+
+class Fits(models.Model):
+    grb = models.ForeignKey(GRB, on_delete=models.CASCADE)
+    fits = models.FileField(upload_to='fits/', null=True, blank=True, validators=[validate_file_extension])

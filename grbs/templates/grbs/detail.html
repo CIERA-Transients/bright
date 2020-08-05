@@ -8,16 +8,19 @@
 
 
 <h2>Cornerplot</h2>
-<img src=/media/{{ grb.cornerplot }}
+<img src=/media/{{ grb.corner }} width="500" height="600">
 <br>
 
 <h2>SED</h2>
-<img src=/media/{{ grb.sed }}
+<img src=/media/{{ grb.sed }} width="800" height="300">
 <br>
 
+<h2>Color</h2>
+<img src=/media/{{ grb.color }} width="150" height="150">
+<br>
 
 <h2>Samples</h2>
-<a href="/media/{{ grb.samples }}">Download MCMC Samples</a>
+<a href="/media/{{ grb.h5 }}">Download MCMC Samples</a>
 <br>
 
 <h2>Download Metadata</h2>
@@ -37,12 +40,12 @@
         </tr>
         <tr style="text-align: left;">
             <td>RA</td>
-            <td> {{ grb.ra }} </td>
+            <td> {{ grb.ra_host }} </td>
         </tr>
 
         <tr style="text-align: left;">
             <td>dec</td>
-            <td> {{ grb.dec }} </td>
+            <td> {{ grb.dec_host }} </td>
         </tr>
 
         <tr style="text-align: left;">
@@ -71,11 +74,6 @@
         </tr>
 
         <tr style="text-align: left;">
-            <td>gas_logz</td>
-            <td>{{grb.gas_logz}}</td>
-        </tr>
-
-        <tr style="text-align: left;">
             <td>dust1</td>
             <td> \({{grb.dust1}}^{ {{ grb.dust1_err_upper }} }_{ {{ grb.dust1_err_lower }} }\)</td>
         </tr>
@@ -83,11 +81,6 @@
         <tr style="text-align: left;">
             <td>dust2</td>
             <td> \({{grb.dust2}}^{ {{ grb.dust2_err_upper }} }_{ {{ grb.dust2_err_lower }} }\)</td>
-        </tr>
-
-        <tr style="text-align: left;">
-            <td>gas_logu</td>
-            <td>{{grb.gas_logu}}</td>
         </tr>
 
         <tr style="text-align: left;">
