@@ -16,11 +16,11 @@ class GRBForm(forms.ModelForm):
                     css_class='form-row'
                 ),
                 Row(
-                    Column('ra', css_class='form-group col-md-6 mb-0'),
+                    Column('ra_host', css_class='form-group col-md-6 mb-0'),
                     css_class='form-row'
                 ),
                 Row(
-                    Column('dec', css_class='form-group col-md-6 mb-0'),
+                    Column('dec_host', css_class='form-group col-md-6 mb-0'),
                     css_class='form-row'
                 ),
                 Row(
@@ -32,4 +32,4 @@ class GRBForm(forms.ModelForm):
         )
     class Meta:
         model = GRB
-        fields = ('comments', 'grb_name', 'ra', 'dec')
+        fields = ('comments', 'grb_name', 'ra_host', 'dec_host')
