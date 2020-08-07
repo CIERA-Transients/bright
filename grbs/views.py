@@ -2,13 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import GRB
 from .forms import GRBForm
+from django.contrib.auth.decorators import user_passes_test
 # Create your views here.
 
+@user_passes_test(lambda u: u.is_superuser)
 def index(request):
     alphabetical_grbs_list = GRB.objects.order_by('grb_name')
     context = {'alphabetical_grbs_list': alphabetical_grbs_list}
     return render(request, 'grbs/index.html', context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def detail(request, grb_id):
     grb = get_object_or_404(GRB, pk=grb_id)
     return render(request, 'grbs/detail.html', {'grb': grb})
