@@ -101,6 +101,7 @@ class GRB(models.Model):
     z_err_lower = models.FloatField(
         null=True, blank=True, verbose_name='Red Shift Lower Error', help_text='Red Shift Lower Error'
     )
+    z_ref = models.CharField(max_length=100,null=True, blank=True,)
 
     mass = models.FloatField(
         null=True, blank=True, verbose_name='Mass', help_text='Mass'
@@ -132,6 +133,16 @@ class GRB(models.Model):
         null=True, blank=True, verbose_name='Log Solar Metallicity Lower Error', help_text='Log Solar Metallicity Lower Error'
     )
 
+    gas_logz = models.FloatField(
+        null=True, blank=True, verbose_name='Gas Log Solar Metallicity', help_text='Gas Log Solar Metallicity.'
+    )
+    gas_logz_err_upper = models.FloatField(
+        null=True, blank=True, verbose_name='Gas Log Solar Metallicity Upper Error', help_text='Gas Log Solar Metallicity Upper Error'
+    )
+    gas_logz_err_lower = models.FloatField(
+        null=True, blank=True, verbose_name='Gas Log Solar Metallicity Lower Error', help_text='Gas Log Solar Metallicity Lower Error'
+    )
+
     dust1 = models.FloatField(
         null=True, blank=True, verbose_name='dust1', help_text='dust1.'
     )
@@ -152,10 +163,6 @@ class GRB(models.Model):
         null=True, blank=True, verbose_name='Dust2 Lower Error', help_text='Dust2 Lower Error'
     )
 
-    gas_logu = models.FloatField(
-        null=True, blank=True, verbose_name='Log Gas ??', help_text='Log Gas ??.'
-    )
-
     sfr = models.FloatField(
         null=True, blank=True, verbose_name='Star Formation Rate', help_text='Star Formation Rate.'
     )
@@ -169,14 +176,19 @@ class GRB(models.Model):
     phot = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_err = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_wave = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
-    telescopes = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
     phot_refs = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+
+    filters = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    telescopes = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+
+
+    spec = models.FileField(upload_to='observed_spectrum/', null=True, blank=True, validators=[validate_file_extension])
     spec_tel = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
     spec_ref = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+
+    mod_phot = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    mod_spec = models.FileField(upload_to='model_spectrum/', null=True, blank=True, validators=[validate_file_extension])
     
-
-    filters = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True) 
-
     corner = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
 
     sed = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
@@ -186,6 +198,7 @@ class GRB(models.Model):
     h5 = models.FileField(upload_to='samples/', null=True, blank=True, validators=[validate_file_extension])
 
     json_metadata = models.FileField(upload_to='json/', null=True, blank=True, validators=[validate_file_extension])
+
     def __str__(self):
         return self.grb_name
 

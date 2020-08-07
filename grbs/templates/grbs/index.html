@@ -7,39 +7,51 @@
 <br>
 <br>
 
-<table border="1" class="table table-striped" id="samples">
+<input type="button" value="Select/Deselect All" onclick="checkboxes()"> 
+<input type="button" value="Download Selected" onclick="download_selected()">
+<br>
+<table border="1" class="table table-striped" id="samples" width="100%">
     <thead>
         <tr style="text-align: right;">
-              <th>grb_name</th>
-              <th>RA</th>
-              <th>dec</th>
-              <th>redshift</th>
-              <th>t_90</th>
-              <th>mass</th>
-              <th>age</th>
-              <th>logzsol</th>
-              <th>dust1</th>
-              <th>dust2</th>
-              <th>SFR</th>
+              <th></th>
+              <th>GRB name</th>
+              <th>Host RA</th>
+              <th>Host Dec</th>
+              <th>$$z$$</th>
+              <th>$$T_{90}$$</th>
+              <th>Fluence $$10^{-7} \textrm{erg}  \textrm{cm}^{-2}$$</th>
+              <th>Optical Detection</th>
+              <th>X-Ray Detection</th>
+              <th>Radio Detection</th>
+              <th>Offset (kpc)</th>
+              <th>$$\textrm{log}(\frac{M}{M_{\odot}})$$</th>
+              <th>$$t_{m}$$</th>
+              <th>$$\log(\frac{Z}{Z_{\odot}})$$</th>
+              <th>$$A_{V}$$</th>
+              <th>$$\textrm{SFR} (M_{\odot yr^{-1}})$$</th>
+              <th>Download</th>
         </tr>
     </thead>
     <tbody>
         {% for grb in alphabetical_grbs_list %}
-            <tr>
+            <tr class="grb">
+                <td><input type="checkbox" id={{grb.id }}/></td>
                 <td><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
                 <td> {{ grb.ra_host }} </td>
                 <td> {{ grb.dec_host }} </td>
-                <td> \({{grb.z}}^{ {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
-                <td> \({{grb.t90}}^{ {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
-                <td> \({{grb.mass}}^{ {{ grb.mass_err_upper }} }_{ {{ grb.mass_err_lower }} }\)</td>
-                <td> \({{grb.age}}^{ {{ grb.age_err_upper }} }_{ {{ grb.age_err_lower }} }\)</td>
-                <td> \({{grb.logzsol}}^{ {{ grb.logzsol_err_upper }} }_{ {{ grb.logzsol_err_lower }} }\)</td>
-                <td> \({{grb.dust1}}^{ {{ grb.dust1_err_upper }} }_{ {{ grb.dust1_err_lower }} }\)</td>
-                <td> \({{grb.dust2}}^{ {{ grb.dust2_err_upper }} }_{ {{ grb.dust2_err_lower }} }\)</td>
-
-                <td>{{grb.gas_logu}}</td>
-                <td> \({{grb.sfr}}^{ {{ grb.sfr_err_upper }} }_{ {{ grb.sfr_err_lower }} }\)</td>
-
+                <td> {{grb.z}} </td>
+                <td> {{grb.t90}} </td>
+                <td> {{grb.fluence}} </td>
+                <td> {{grb.opt}} </td>
+                <td> {{grb.xray}} </td>
+                <td> {{grb.radio}} </td>
+                <td> {{grb.offset}} </td>
+                <td> {{grb.mass}} </td>
+                <td> {{grb.age}} </td>
+                <td> {{grb.logzsol}} </td>
+                <td> {{grb.dust2}} </td>
+                <td> {{grb.sfr}} </td>
+                <td><a href="/media/{{ grb.json_metadata }}">{{grb.id }}</a></td>
                 </tr>
         {% endfor %}
     </tbody>
@@ -49,13 +61,37 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#samples").fancyTable({
+            globalSearchExcludeColumns: [1], // Exclude 2nd and 5th column.
             sortColumn:0,
             pagination: true,
             perPage:10,
-            globalSearch:true
+            globalSearch:false
         });		
     });
 </script>
+
+<script type="text/javascript">
+function checkboxes(){
+    if ($("#samples").find('td input:checkbox').prop('checked')) {
+      $("#samples").find('td input:checkbox').prop('checked', false)
+    } else {
+      $("#samples").find('td input:checkbox').prop('checked', true)
+    }
+};
+</script>
+
+<script type="text/javascript">
+function download_selected(){
+    var url = '/grbs/bulkdownload?grbs=';
+    $("#samples").find('tr.grb').each(function() {
+            if ($(this).find("input:checkbox").prop('checked')) {
+                url = url + $(this).find("td").eq(16).text()
+                console.log(url)
+            }
+    });
+};
+</script>
+
 
 </body>
 </html>
