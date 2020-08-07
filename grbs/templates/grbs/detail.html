@@ -6,25 +6,25 @@
 
 <br>
 
+<div style="clear: both">
+    <h2 style="float: left"> <a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a> </h2>
+    <h2 style="float: right"> <a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a> </h2>
+</div>
 
-<h2>Cornerplot</h2>
-<img src=/media/{{ grb.corner }} width="500" height="600">
+<br>
 <br>
 
-<h2>SED</h2>
-<img src=/media/{{ grb.sed }} width="800" height="300">
-<br>
+<div class="row">
+    <div class="column">
+        <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
+    </div>
+    <div class="column">
+        <img src=/media/{{ grb.corner }} alt="corner" style="width:100%" height=400>
+    </div>
+</div> 
 
 <h2>Color</h2>
 <img src=/media/{{ grb.color }} width="150" height="150">
-<br>
-
-<h2>Samples</h2>
-<a href="/media/{{ grb.h5 }}">Download MCMC Samples</a>
-<br>
-
-<h2>Download Metadata</h2>
-<a href="/media/{{ grb.json_metadata }}">Download Metadata</a>
 <br>
 
 <h2>Metadata</h2>
@@ -32,6 +32,8 @@
     <thead>
         <th>Attribute</th>
         <th>Values</th>
+        <th>Telescope</th>
+        <th>Ref</th>
     </thead>
     <tbody>
         <tr style="text-align: left;">
@@ -55,7 +57,7 @@
 
         <tr style="text-align: left;">
             <td>t_90</td>
-            <td>{{grb.t_90}}</td>
+            <td> \({{grb.t90}}^{ {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
         </tr>
 
         <tr style="text-align: left;">

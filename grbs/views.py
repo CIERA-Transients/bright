@@ -13,6 +13,10 @@ def detail(request, grb_id):
     grb = get_object_or_404(GRB, pk=grb_id)
     return render(request, 'grbs/detail.html', {'grb': grb})
 
+def download(request, grb_ids):
+    grb = get_object_or_404(GRB, pk=grb_id)
+    return render(request, 'grbs/detail.html', {'grb': grb})
+
 def function(request):
     if request.method == 'POST':
         form = GRBForm(request.POST)

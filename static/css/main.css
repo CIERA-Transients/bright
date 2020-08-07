@@ -1,9 +1,31 @@
 html, body {
-  background: white;
-  color: #4e2a84;
-  font: 400 18px/1.5 "Campton Extra Light", sans-serif;
-  margin: 0;
+    background: white;
+    color: #4e2a84;
+    font: 400 18px/1.5 "Campton Extra Light", sans-serif;
+    margin: 0;
+    height:100%;
+    width:100%;
+    padding:0;
 }
+
+table { 
+    width:100%;
+    font: 400 10px/1.5 "Campton Extra Light", sans-serif;
+}
+
+ /* Three image containers (use 25% for four, and 50% for two, etc) */
+.column {
+  float: left;
+  width: 50.0%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+} 
 
 header {
   background-color: #401f68;
