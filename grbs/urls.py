@@ -11,5 +11,7 @@ urlpatterns = [
     # ex: /grbs/add_grb
     path('add_grb', views.function_that_happens_at_url, name='add_grb'),
     # ex: /grbs/add_grb_from_form
-    path('add_grb_from_form/', views.function, name='add_grb_from_form')
+    path('add_grb_from_form/', views.function, name='add_grb_from_form'),
+    # ex: grbs/bulkdownload/
+    path('bulkdownload/', views.bulkdownload, name='bulkdownload'),
 ]

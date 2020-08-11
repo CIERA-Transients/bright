@@ -33,3 +33,7 @@ class GRBForm(forms.ModelForm):
     class Meta:
         model = GRB
         fields = ('comments', 'grb_name', 'ra_host', 'dec_host')
+
+
+class DownloadForm(forms.Form):
+    grbs = forms.CharField(max_length=500)

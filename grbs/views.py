@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import GRB
-from .forms import GRBForm
+from .forms import GRBForm, DownloadForm
 from django.contrib.auth.decorators import user_passes_test
+import zipfile
+import io
 # Create your views here.
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -41,3 +43,21 @@ def function_that_happens_at_url(request):
         return render(request, 'grbs/add_grb.html', {'form' : form})
     else:
         return redirect('/accounts/login')
+
+
+def bulkdownload(request):
+    if request.method == 'GET':
+        form = DownloadForm(request.GET)
+        if form.is_valid():
+            grbs_ids_to_download = list(filter(None,form.cleaned_data['grbs'].split(',')))
+            response = HttpResponse(content_type='application/zip')
+            with zipfile.ZipFile(response, 'w') as zf:
+                for grb_id in grbs_ids_to_download:
+                    grb = get_object_or_404(GRB, pk=grb_id)
+                    zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
+            ZIPFILE_NAME = 'grb_metadata.zip'
+            response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
+            return response
+        return redirect("grbs:index")
+    else:
+        return redirect("grbs:index")
