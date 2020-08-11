@@ -186,7 +186,7 @@ class GRB(models.Model):
     spec_tel = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
     spec_ref = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
 
-    mod_phot = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    mod_phot = models.FileField(upload_to='model_phot/', null=True, blank=True, validators=[validate_file_extension])
     mod_spec = models.FileField(upload_to='model_spectrum/', null=True, blank=True, validators=[validate_file_extension])
     
     corner = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
