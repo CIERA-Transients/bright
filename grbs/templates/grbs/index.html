@@ -37,7 +37,7 @@
         {% for grb in alphabetical_grbs_list %}
             <tr class="grb">
                 <td><input type="checkbox" id={{grb.id }}/></td>
-                <td><img width="100" height="100" class="thumbImage" style="display:none" src=/media/{{ grb.color }}><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
+                <td><img width="100" height="100" class="thumbImage" style="display:block" src=/media/{{ grb.color }}><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
                 <td> {{ grb.ra_host }} </td>
                 <td> {{ grb.dec_host }} </td>
                 <td> {{grb.z}} </td>
@@ -93,6 +93,8 @@ function download_selected(){
 };
 </script>
 
+
+    <!--
 <script type="text/javascript">
  $(document).ready(function(){
    $("#samples").find('tr.grb').mouseover(function(){
@@ -104,6 +106,8 @@ function download_selected(){
    });
  });
 </script>
+    -->
+
 
 </body>
 </html>
