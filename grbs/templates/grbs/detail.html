@@ -24,17 +24,18 @@
                 <th>Values</th>
             </thead>
             <tbody>
+
                 <tr style="text-align: left;">
-                    <td>GRB name</td>
+                    <td>$$\textrm{GRB name}$$</td>
                     <td><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
                 </tr>
                 <tr style="text-align: left;">
-                    <td>Host RA</td>
+                    <td>$$\textrm{Host RA}$$</td>
                     <td> {{ grb.ra_host }} </td>
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>Host Dec</td>
+                    <td>$$\textrm{Host Dec}$$</td>
                     <td> {{ grb.dec_host }} </td>
                 </tr>
 
@@ -49,7 +50,7 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$\textrm{log}(\frac{M}{M_{\odot}})$$</td>
+                    <td>$$\textrm{log}(M / M_{\odot})$$</td>
                     <td> \({{grb.mass}}^{ {{ grb.mass_err_upper }} }_{ {{ grb.mass_err_lower }} }\)</td>
                 </tr>
 
@@ -59,7 +60,7 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$\log(\frac{Z}{Z_{\odot}})$$</td>
+                    <td>$$\log(Z/Z_{\odot})$$</td>
                     <td> \({{grb.logzsol}}^{ {{ grb.logzsol_err_upper }} }_{ {{ grb.logzsol_err_lower }} }\)</td>
                 </tr>
 
@@ -74,22 +75,22 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$\textrm{SFR} (M_{\odot yr^{-1}})$$</td>
+                    <td>$$\textrm{SFR} (M_{\odot} \times yr^{-1})$$</td>
                     <td> \({{grb.sfr}}^{ {{ grb.sfr_err_upper }} }_{ {{ grb.sfr_err_lower }} }\)</td>
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>model photometry</td>
+                    <td>$$\textrm{model photometry}$$</td>
                     <td> <a href="/media/{{ grb.mod_phot }}"><u>Download CSV</u></a></td>
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>model spectroscopy</td>
+                    <td>$$\textrm{model spectroscopy}$$</td>
                     <td> <a href="/media/{{ grb.mod_spec }}"><u>Download CSV</u></a></td>
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>observed spectroscopy</td>
+                    <td>$$\textrm{observed spectroscopy}$$</td>
                     <td> <a href="/media/{{ grb.spec }}"><u>Download CSV</u></a></td>
                 </tr>
 
