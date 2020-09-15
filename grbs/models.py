@@ -177,14 +177,13 @@ class GRB(models.Model):
     phot_err = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_wave = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_refs = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
-
     filters = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
     telescopes = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
 
 
     spec = models.FileField(upload_to='observed_spectrum/', null=True, blank=True, validators=[validate_file_extension])
-    spec_tel = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
-    spec_ref = ArrayField(models.CharField(max_length=100,null=True, blank=True,), blank=True, null=True)
+    spec_tel = models.CharField(max_length=100,null=True, blank=True,)
+    spec_ref = models.CharField(max_length=100,null=True, blank=True,)
 
     mod_phot = models.FileField(upload_to='model_phot/', null=True, blank=True, validators=[validate_file_extension])
     mod_spec = models.FileField(upload_to='model_spectrum/', null=True, blank=True, validators=[validate_file_extension])
@@ -206,3 +205,5 @@ class GRB(models.Model):
 class Fits(models.Model):
     grb = models.ForeignKey(GRB, on_delete=models.CASCADE)
     fits = models.FileField(upload_to='fits/', null=True, blank=True, validators=[validate_file_extension])
+    def __str__(self):
+        return "Fits File {0} which is associated with {1}".format(self.fits, self.grb.grb_name)
