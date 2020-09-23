@@ -6,18 +6,150 @@
 
 <div class="row" style="border-bottom-style: solid;">
     <div class="column">
-        <h3 style="float: left"> <a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a> </h3>
-        <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
-        <h2> Color Composite </h2>
-        <img src=/media/{{ grb.color }} width="150" height="150">
+        <h2 style="float: left"> <a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a> </h2>
+        <div id=sed class="img-container">
+            <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
+        </div>
+        <div id=sedbox>
+        </div>
+        <div id=color class="img-container">
+            <img src=/media/{{ grb.color }} width="150" height="150">
+        </div>
+        <div id=colorbox>
+        </div>
     </div>
     <div class="column">
-        <h3 style="float: left"> <a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a> </h3>
-        <img src=/media/{{ grb.corner }} alt="corner" style="width:100%">
+        <h2 style="float: left"> <a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a> </h2>
+        <div id=corner class="img-container">
+            <img src=/media/{{ grb.corner }} alt="corner" style="width:100%">
+        </div>
+        <div id=cornerbox>
+        </div>
     </div>
 </div> 
 
 <div class="row">
+    <div class="column">
+        <h2>GRB and Host Properties</h2>
+        <table border="1" class="table table-striped" id="samples">
+            <thead>
+                <th>Attribute</th>
+                <th>Values</th>
+                <th>Telescope</th>
+                <th>Ref</th>
+            </thead>
+            <tbody>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{GRB Name}$$</td>
+                    <td><a href="{% url 'grbs:detail' grb.id %}">$$\textrm{ {{ grb.grb_name }} }$$</a></td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Host RA}$$</td>
+                    <td>$$\textrm{ {{ grb.ra_host }} }$$</td>
+                    <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
+                    <td>$$\textrm{ {{ grb.tel_pos_ref }} }$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Host Dec}$$</td>
+                    <td>$$\textrm{ {{ grb.dec_host }} }$$</td>
+                    <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
+                    <td>$$\textrm{ {{ grb.tel_pos_ref }} }$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$z$$</td>
+                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$\textrm{ {{ grb.z_ref }} }$$</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Offset}$$</td>
+                    <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Offset (kpc)}$$</td>
+                    <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$T_{90}$$</td>
+                    <td> \({{grb.t90}}^{ + {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Fluence} \textrm{ } (\textrm{erg} \times \textrm{cm}^{-2})$$</td>
+                    <td> \({{grb.fluence}}^{ + {{ grb.fluence_err_upper }} }_{ {{ grb.fluence_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{X-Ray Detection}$$</td>
+                    <td>$$\textrm{ {{ grb.xray }} }$$</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Optical Detection}$$</td>
+                    <td>$$\textrm{ {{ grb.opt }} }$$</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Radio Detection}$$</td>
+                    <td>$$\textrm{ {{ grb.radio }} }$$</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                {% for phot, phot_err, phot_tel, phot_ref, filters, fits_file in phot_zip %}
+                    <tr style="text-align: left;">
+                        <td>$$ {{filters }} $$<a href="/media/{{ fits_file.fits }}"> $$\textrm{FITS}$$ </a></td>
+                        <td> \({{phot}}^{ + {{ phot_err }} }_{ -{{ phot_err }} }\)</td>
+                        <td>$$\textrm{ {{phot_tel}} }$$</td>
+                        <td>$$\textrm{ {{phot_ref}} }$$</td>
+                    </tr>
+                {% endfor %}
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{observed spectroscopy}$$</td>
+                    <td><a href="/media/{{ grb.spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
+                    <td>$$\textrm{ {{grb.spec_tel}} }$$</td>
+                    <td>$$\textrm{ {{grb.spec_ref}} }$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{model photometry}$$</td>
+                    <td> <a href="/media/{{ grb.mod_phot }}"><u>$$\textrm{Download CSV}$$</u></a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{model spectroscopy}$$</td>
+                    <td> <a href="/media/{{ grb.mod_spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+           </tbody>
+        </table>
+    </div>
+ 
     <div class="column">
         <h2>Stellar Population Properties</h2>
         <table border="1" class="table table-striped" id="samples">
@@ -111,129 +243,65 @@
         </table>
     </div>
 
- 
-    <div class="column">
-        <h2>GRB and Host Properties</h2>
-        <table border="1" class="table table-striped" id="samples">
-            <thead>
-                <th>Attribute</th>
-                <th>Values</th>
-                <th>Telescope</th>
-                <th>Ref</th>
-            </thead>
-            <tbody>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{GRB Name}$$</td>
-                    <td><a href="{% url 'grbs:detail' grb.id %}">$$\textrm{ {{ grb.grb_name }} }$$</a></td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-                <tr style="text-align: left;">
-                    <td>$$\textrm{Host RA}$$</td>
-                    <td>$$\textrm{ {{ grb.ra_host }} }$$</td>
-                    <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
-                    <td>$$\textrm{ {{ grb.tel_pos_ref }} }$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{Host Dec}$$</td>
-                    <td>$$\textrm{ {{ grb.dec_host }} }$$</td>
-                    <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
-                    <td>$$\textrm{ {{ grb.tel_pos_ref }} }$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$z$$</td>
-                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$\textrm{ {{ grb.z_ref }} }$$</td>
-                </tr>
-
-              <tr style="text-align: left;">
-                    <td>$$\textrm{Offset}$$</td>
-                    <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-              <tr style="text-align: left;">
-                    <td>$$\textrm{Offset (kpc)}$$</td>
-                    <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$T_{90}$$</td>
-                    <td> \({{grb.t90}}^{ + {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{Fluence} \textrm{ } (\textrm{erg} \times \textrm{cm}^{-2})$$</td>
-                    <td> \({{grb.fluence}}^{ + {{ grb.fluence_err_upper }} }_{ {{ grb.fluence_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{X-Ray Detection}$$</td>
-                    <td>$$\textrm{ {{ grb.xray }} }$$</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{Optical Detection}$$</td>
-                    <td>$$\textrm{ {{ grb.opt }} }$$</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{Radio Detection}$$</td>
-                    <td>$$\textrm{ {{ grb.radio }} }$$</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                {% for phot, phot_err, phot_tel, phot_ref, filters, fits_file in phot_zip %}
-                    <tr style="text-align: left;">
-                        <td>$$ {{filters }} $$<a href="/media/{{ fits_file.fits }}"> $$\textrm{FITS}$$ </a></td>
-                        <td> \({{phot}}^{ + {{ phot_err }} }_{ {{ phot_err }} }\)</td>
-                        <td>$$\textrm{ {{phot_tel}} }$$</td>
-                        <td>$$\textrm{ {{phot_ref}} }$$</td>
-                    </tr>
-                {% endfor %}
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{observed spectroscopy}$$</td>
-                    <td><a href="/media/{{ grb.spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
-                    <td>$$\textrm{ {{grb.spec_tel}} }$$</td>
-                    <td>$$\textrm{ {{grb.spec_ref}} }$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{model photometry}$$</td>
-                    <td> <a href="/media/{{ grb.mod_phot }}"><u>$$\textrm{Download CSV}$$</u></a></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$\textrm{model spectroscopy}$$</td>
-                    <td> <a href="/media/{{ grb.mod_spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-
-           </tbody>
-        </table>
-    </div>
 </div>
 </body>
 </html>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#sed").find("img").blowup();
+    $("#color").find("img").blowup();
+    $("#corner").find("img").blowup();
+})
+</script>
+
+    <!--   
+<script type="text/javascript">
+ $(document).ready(function(){
+   $("#color").find("img").mouseover(function(){
+        // Put logic on show
+        var imgbox=document.getElementById("colorbox");
+        imgbox.style.visibility='visible';
+        var img = document.createElement("img");
+        img.src = $( this ).prop("src");
+        img.style.width = '450px';
+        img.style.height = '450px';
+        imgbox.innerHTML='';
+        imgbox.appendChild(img);
+   }).mouseout(function(){
+        // Put logic on hide
+        $("#colorbox").find("img").remove();
+   });
+   $("#sed").find("img").mouseover(function(){
+        // Put logic on show
+        var imgbox=document.getElementById("sedbox");
+        imgbox.style.visibility='visible';
+        var img = document.createElement("img");
+        img.src = $( this ).prop("src");
+        img.style.width = '450px';
+        img.style.height = '450px';
+        imgbox.innerHTML='';
+        imgbox.appendChild(img);
+   }).mouseout(function(){
+        // Put logic on hide
+        $("#sedbox").find("img").remove();
+   });
+   $("#corner").find("img").mouseover(function(){
+        // Put logic on show
+        var imgbox=document.getElementById("cornerbox");
+        imgbox.style.visibility='visible';
+        var img = document.createElement("img");
+        img.src = $( this ).prop("src");
+        img.style.width = '450px';
+        img.style.height = '450px';
+        imgbox.innerHTML='';
+        imgbox.appendChild(img);
+   }).mouseout(function(){
+        // Put logic on hide
+        $("#cornerbox").find("img").remove();
+   });
+ });
+</script>
+    -->
 
 {% endblock %}

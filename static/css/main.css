@@ -91,6 +91,11 @@ label {
   border: none;
 }
 
+.img-container {
+    text-align: center;
+    display: block;
+}
+
 @media screen and (max-width: 1200px) {
   header > nav {
     flex-direction: column;
