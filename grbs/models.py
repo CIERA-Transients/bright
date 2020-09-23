@@ -207,3 +207,14 @@ class Fits(models.Model):
     fits = models.FileField(upload_to='fits/', null=True, blank=True, validators=[validate_file_extension])
     def __str__(self):
         return "Fits File {0} which is associated with {1}".format(self.fits, self.grb.grb_name)
+
+class Reference(models.Model):
+    grb = models.ForeignKey(GRB, on_delete=models.CASCADE)
+    shorthand = models.CharField(max_length=100,
+        null=True, blank=True, verbose_name='Citation short hand', help_text='Citation short hand'
+    )
+    url = models.URLField(max_length=300,
+        null=True, blank=True, verbose_name='URL for reference', help_text='URL for reference'
+    )
+    def __str__(self):
+        return "Citation {0} which is associated with {1}".format(self.shorthand, self.grb.grb_name)

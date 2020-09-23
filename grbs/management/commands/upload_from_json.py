@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core.files import File
-from grbs.models import GRB, Fits
+from grbs.models import GRB, Fits, Reference
 
 import glob
 import json
@@ -67,6 +67,10 @@ class Command(BaseCommand):
                         grb.mod_spec.save(v[0], File(open(v[0], 'rb')))
                     except:
                         grb.mod_spec.save(v, File(open(v, 'rb')))
+                elif k.lower() == 'urls':
+                    for reference, url in v.items():
+                        ref = Reference(grb=grb, shorthand=reference, url=url)
+                        ref.save()
                 else:
                     setattr(grb, k.lower(), v)
             grb.save()

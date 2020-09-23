@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-  
+
 {% block content %}
 
 <a href="{% url 'grbs:add_grb' %}">Consider Adding a GRB</a>
@@ -7,7 +7,7 @@
 <br>
 <br>
 
-<input type="button" value="Select/Deselect All" onclick="checkboxes()"> 
+<input type="button" value="Select/Deselect All" onclick="checkboxes()">
 <input type="button" value="Download Selected" onclick="download_selected()">
 <br>
 <br>
@@ -37,22 +37,22 @@
         {% for grb in alphabetical_grbs_list %}
             <tr class="grb">
                 <td><input type="checkbox" id={{grb.id }}/></td>
-                <td><img width="100" height="100" class="thumbImage" style="display:block" src=/media/{{ grb.color }}><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
-                <td> {{ grb.ra_host }} </td>
-                <td> {{ grb.dec_host }} </td>
-                <td> {{grb.z}} </td>
-                <td> {{grb.t90}} </td>
-                <td> {{grb.fluence}} </td>
-                <td> {{grb.opt}} </td>
-                <td> {{grb.xray}} </td>
-                <td> {{grb.radio}} </td>
-                <td> {{grb.offset}} </td>
-                <td> {{grb.mass}} </td>
-                <td> {{grb.age}} </td>
-                <td> {{grb.logzsol}} </td>
-                <td> {{grb.dust2}} </td>
-                <td> {{grb.sfr}} </td>
-                <td><a href="/media/{{ grb.json_metadata }}">{{grb.id }}</a></td>
+                <td><img width="100" height="100" class="thumbImage" style="display:block" src=/media/{{ grb.color }}><a href="{% url 'grbs:detail' grb.id %}">$$ \Large \textrm { {{ grb.grb_name }} }$$</a></td>
+                <td> $$ \Large \textrm{ {{ grb.ra_host }} }$$</td>
+                <td> $$ \Large \textrm{ {{ grb.dec_host }} }$$</td>
+                <td> $$ \Large {{grb.z}} $$</td>
+                <td> $$ \Large {{grb.t90}} $$</td>
+                <td> $$ \Large {{grb.fluence}} $$</td>
+                <td> $$ \Large \textrm{ {{grb.opt}} }$$</td>
+                <td> $$ \Large \textrm{ {{grb.xray}} }$$</td>
+                <td> $$ \Large \textrm{ {{grb.radio}} }$$</td>
+                <td> $$ \Large {{grb.offset}} $$</td>
+                <td> $$ \Large {{grb.mass}} $$</td>
+                <td> $$ \Large {{grb.age}} $$</td>
+                <td> $$ \Large {{grb.logzsol}} $$</td>
+                <td> $$ \Large {{grb.dust2}} $$</td>
+                <td> $$ \Large {{grb.sfr}} $$</td>
+                <td><a href="/media/{{ grb.json_metadata }}">$$ {{grb.id }} $$</a></td>
                 </tr>
         {% endfor %}
     </tbody>
@@ -68,7 +68,7 @@
             perPage:10,
             globalSearch:false,
             inputStyle: 'color:purple;'
-        });		
+        });
     });
 </script>
 
