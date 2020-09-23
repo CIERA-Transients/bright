@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-  
+
 {% block content %}
 
 <h1>{{ grb.grb_name }}</h1>
@@ -26,7 +26,7 @@
         <div id=cornerbox>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="row">
     <div class="column">
@@ -50,21 +50,47 @@
                     <td>$$\textrm{Host RA}$$</td>
                     <td>$$\textrm{ {{ grb.ra_host }} }$$</td>
                     <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
-                    <td>$$\textrm{ {{ grb.tel_pos_ref }} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.tel_pos_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.tel_pos_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.tel_pos_ref}} }$$</td>
+                    {% endif %}
+
                 </tr>
 
                 <tr style="text-align: left;">
                     <td>$$\textrm{Host Dec}$$</td>
                     <td>$$\textrm{ {{ grb.dec_host }} }$$</td>
                     <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
-                    <td>$$\textrm{ {{ grb.tel_pos_ref }} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.tel_pos_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.tel_pos_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.tel_pos_ref}} }$$</td>
+                    {% endif %}
                 </tr>
 
                 <tr style="text-align: left;">
                     <td>$$z$$</td>
                     <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
                     <td>$$-$$</td>
-                    <td>$$\textrm{ {{ grb.z_ref }} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.z_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.z_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.z_ref}} }$$</td>
+                    {% endif %}
+
                 </tr>
 
               <tr style="text-align: left;">
@@ -121,7 +147,15 @@
                         <td>$$ {{filters }} $$<a href="/media/{{ fits_file.fits }}"> $$\textrm{FITS}$$ </a></td>
                         <td> \({{phot}}^{ + {{ phot_err }} }_{ -{{ phot_err }} }\)</td>
                         <td>$$\textrm{ {{phot_tel}} }$$</td>
-                        <td>$$\textrm{ {{phot_ref}} }$$</td>
+                        {% if references|length > 0  %}
+                            {% for shorthand, urls in references.items %}
+                                {% if shorthand == phot_ref %}
+                                    <td><a href={{urls}}> $$\textrm{ {{phot_ref}} }$$ </a></td>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <td>$$\textrm{ {{phot_ref}} }$$</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
 
@@ -129,27 +163,35 @@
                     <td>$$\textrm{observed spectroscopy}$$</td>
                     <td><a href="/media/{{ grb.spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
                     <td>$$\textrm{ {{grb.spec_tel}} }$$</td>
-                    <td>$$\textrm{ {{grb.spec_ref}} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.spec_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.spec_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.spec_ref}} }$$</td>
+                    {% endif %}
                 </tr>
 
                 <tr style="text-align: left;">
                     <td>$$\textrm{model photometry}$$</td>
                     <td> <a href="/media/{{ grb.mod_phot }}"><u>$$\textrm{Download CSV}$$</u></a></td>
-                    <td></td>
-                    <td></td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
                 </tr>
 
                 <tr style="text-align: left;">
                     <td>$$\textrm{model spectroscopy}$$</td>
                     <td> <a href="/media/{{ grb.mod_spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
-                    <td></td>
-                    <td></td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
                 </tr>
 
            </tbody>
         </table>
     </div>
- 
+
     <div class="column">
         <h2>Stellar Population Properties</h2>
         <table border="1" class="table table-striped" id="samples">
@@ -249,13 +291,31 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#sed").find("img").blowup();
-    $("#color").find("img").blowup();
-    $("#corner").find("img").blowup();
+    $("#sed").find("img").blowup({
+        "width" : 250,
+        "height" : 250,
+        "round" : false,
+        "scale" : 1.0,
+        "cursor": false,
+        });
+    $("#color").find("img").blowup({
+        "width" : 250,
+        "height" : 250,
+        "round" : false,
+        "scale" : 1.0,
+        "cursor": false,
+        });
+    $("#corner").find("img").blowup({
+        "width" : 250,
+        "height" : 250,
+        "round" : false,
+        "scale" : 1.0,
+        "cursor": false,
+        });
 })
 </script>
 
-    <!--   
+    <!--
 <script type="text/javascript">
  $(document).ready(function(){
    $("#color").find("img").mouseover(function(){

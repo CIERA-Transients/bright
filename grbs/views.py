@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import GRB, Fits
+from .models import GRB, Fits, Reference
 from .forms import GRBForm, DownloadForm
 from django.contrib.auth.decorators import user_passes_test
 import zipfile
@@ -17,7 +17,11 @@ def index(request):
 def detail(request, grb_id):
     grb = get_object_or_404(GRB, pk=grb_id)
     fits_files = Fits.objects.filter(grb=grb_id) 
-    return render(request, 'grbs/detail.html', {'grb': grb, 'phot_zip' : zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, fits_files) })
+    references = Reference.objects.filter(grb=grb_id)
+    references_dict = {}
+    for ref in references:
+        references_dict[ref.shorthand] = ref.url
+    return render(request, 'grbs/detail.html', {'grb': grb, 'phot_zip' : zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, fits_files), 'references': references_dict})
 
 def download(request, grb_ids):
     grb = get_object_or_404(GRB, pk=grb_id)
