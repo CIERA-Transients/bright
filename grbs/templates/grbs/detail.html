@@ -3,27 +3,27 @@
 {% block content %}
 
 <h1>{{ grb.grb_name }}</h1>
+<div class="row" style="border-bottom-style: solid;">
+    <div class="column_top" id=color>
+        <img src=/media/{{ grb.color }} width="150" height="150">
+    </div>
+    <div class="column_top">
+        <h6 style="float: left"> <a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a> </h6>
+        <br>
+        <h6 style="float: left"> <a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a> </h6>
+    </div>
+</div>
+
 
 <div class="row" style="border-bottom-style: solid;">
     <div class="column">
-        <h2 style="float: left"> <a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a> </h2>
         <div id=sed class="img-container">
             <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
         </div>
-        <div id=sedbox>
-        </div>
-        <div id=color class="img-container">
-            <img src=/media/{{ grb.color }} width="150" height="150">
-        </div>
-        <div id=colorbox>
-        </div>
     </div>
     <div class="column">
-        <h2 style="float: left"> <a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a> </h2>
         <div id=corner class="img-container">
             <img src=/media/{{ grb.corner }} alt="corner" style="width:100%">
-        </div>
-        <div id=cornerbox>
         </div>
     </div>
 </div>
@@ -78,36 +78,6 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$z$$</td>
-                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    {% if references|length > 0  %}
-                        {% for shorthand, urls in references.items %}
-                            {% if shorthand == grb.z_ref %}
-                                <td><a href={{urls}}> $$\textrm{ {{grb.z_ref}} }$$ </a></td>
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        <td>$$\textrm{ {{grb.z_ref}} }$$</td>
-                    {% endif %}
-
-                </tr>
-
-              <tr style="text-align: left;">
-                    <td>$$\textrm{Offset}$$</td>
-                    <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-              <tr style="text-align: left;">
-                    <td>$$\textrm{Offset (kpc)}$$</td>
-                    <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
-                    <td>$$-$$</td>
-                    <td>$$-$$</td>
-                </tr>
-
-                <tr style="text-align: left;">
                     <td>$$T_{90}$$</td>
                     <td> \({{grb.t90}}^{ + {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
                     <td>$$-$$</td>
@@ -115,7 +85,7 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$\textrm{Fluence} \textrm{ } (\textrm{erg} \times \textrm{cm}^{-2})$$</td>
+                    <td>$$\textrm{Fluence} \textrm{ } (10^{-8} \textrm{erg} \times \textrm{cm}^{-2})$$</td>
                     <td> \({{grb.fluence}}^{ + {{ grb.fluence_err_upper }} }_{ {{ grb.fluence_err_lower }} }\)</td>
                     <td>$$-$$</td>
                     <td>$$-$$</td>
@@ -217,6 +187,22 @@
                         <td>$$-$$</td>
                     {% endif %}
                 </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$z$$</td>
+                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Offset}$$</td>
+                    <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Offset (kpc)}$$</td>
+                    <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
+                </tr>
+
 
                 <tr style="text-align: left;">
                     <td>$$\textrm{log}(M / M_{\odot})$$</td>

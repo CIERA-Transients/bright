@@ -1,7 +1,7 @@
 html, body {
     background: white;
     color: #4e2a84;
-    font: 400 18px/1.5 "Campton Extra Light", sans-serif;
+    font: 400 18px/1.5 'Avenir', Helvetica, sans-serif;
     margin: 0;
     height:100%;
     width:100%;
@@ -14,6 +14,17 @@ table {
 }
 
  /* Three image containers (use 25% for four, and 50% for two, etc) */
+.single_column {
+  float: left;
+  width: 100.0%;
+  padding: 10px;
+}
+.column_top {
+  float: left;
+  width: 33.0%;
+  padding: 10px;
+}
+
 .column {
   float: left;
   width: 50.0%;
