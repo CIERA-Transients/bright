@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+  
+{% block content %}
+
+<body>
+    <h1>Downloadable Data</h1>
+You’ll notice that there are a few data files available for download for each SGRB host. We describe what each of these files are as well as how you can use the information each of these below.
+
+<br>
+<br>
+<b>Nested Sampling Samples (h5 file)</b>: This h5 file contains the nested sampling “chains” from the Prospector fit of the host. Please see the Prospector documentation to learn how to read these files. The nested sampling chains are most useful for creating posterior distributions of each sampled stellar population property (e.g., the corner plot).
+
+<br>
+<br>
+
+<b>Metadata (JSON file)</b>: This JSON dictionary contains all the information listed in the tables on the individual pages for a SGRB host. You will not find arrays of the observed spectrum or model photometry and spectra from the Prospector fits here. This file is best used to extract properties of the host (with 1-sigma errors) and SGRB itself, with relevant sources. Telescopes for the observed data are also listed.
+
+<br>
+<br>
+
+<b>FITS</b>: The FITS files are images of the SGRB host and the surrounding galaxies in the available photometric bands. You can use these images to better understand the host and its surrounding environment.
+
+<br>
+<br>
+
+<b>CSV Files</b>: There are either two or three CSV files available for download. Every SGRB host has two CSV files containing the model photometry and spectrum from the Prospector fit, both of which are normalized to the observed photometry and are in units of micro-Jy. Several hosts also have an observed spectrum, which is a third CSV file and contains the spectrum, error spectrum (both in micro-Jy), and wavelengths (in Angstroms). You can use these files to create model SED’s, similar to the ones shown on the individual pages.
+
+
+</body>
+
+
+{% endblock %}
