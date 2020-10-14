@@ -50,7 +50,30 @@ def function_that_happens_at_url(request):
         return redirect('/accounts/login')
 
 
-def bulkdownload(request):
+def bulkdownload_all(request):
+    if request.method == 'GET':
+        form = DownloadForm(request.GET)
+        if form.is_valid():
+            grbs_ids_to_download = list(filter(None,form.cleaned_data['grbs'].split(',')))
+            response = HttpResponse(content_type='application/zip')
+            with zipfile.ZipFile(response, 'w') as zf:
+                for grb_id in grbs_ids_to_download:
+                    grb = get_object_or_404(GRB, pk=grb_id)
+                    zf.write(grb.corner.file.name, arcname=grb.corner.name)
+                    zf.write(grb.color.file.name, arcname=grb.color.name)
+                    zf.write(grb.sed.file.name, arcname=grb.sed.name)
+                    zf.write(grb.h5.file.name, arcname=grb.h5.name)
+                    zf.write(grb.mod_phot.file.name, arcname=grb.mod_phot.name)
+                    zf.write(grb.mod_spec.file.name, arcname=grb.mod_spec.name)
+                    zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
+            ZIPFILE_NAME = 'grb_alldata.zip'
+            response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
+            return response
+        return redirect("grbs:index")
+    else:
+        return redirect("grbs:index")
+
+def bulkdownload_json(request):
     if request.method == 'GET':
         form = DownloadForm(request.GET)
         if form.is_valid():
@@ -60,7 +83,61 @@ def bulkdownload(request):
                 for grb_id in grbs_ids_to_download:
                     grb = get_object_or_404(GRB, pk=grb_id)
                     zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
-            ZIPFILE_NAME = 'grb_metadata.zip'
+            ZIPFILE_NAME = 'grb_json_metadata.zip'
+            response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
+            return response
+        return redirect("grbs:index")
+    else:
+        return redirect("grbs:index")
+
+def bulkdownload_samples(request):
+    if request.method == 'GET':
+        form = DownloadForm(request.GET)
+        if form.is_valid():
+            grbs_ids_to_download = list(filter(None,form.cleaned_data['grbs'].split(',')))
+            response = HttpResponse(content_type='application/zip')
+            with zipfile.ZipFile(response, 'w') as zf:
+                for grb_id in grbs_ids_to_download:
+                    grb = get_object_or_404(GRB, pk=grb_id)
+                    zf.write(grb.h5.file.name, arcname=grb.h5.name)
+            ZIPFILE_NAME = 'grb_samples.zip'
+            response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
+            return response
+        return redirect("grbs:index")
+    else:
+        return redirect("grbs:index")
+
+def bulkdownload_plots(request):
+    if request.method == 'GET':
+        form = DownloadForm(request.GET)
+        if form.is_valid():
+            grbs_ids_to_download = list(filter(None,form.cleaned_data['grbs'].split(',')))
+            response = HttpResponse(content_type='application/zip')
+            with zipfile.ZipFile(response, 'w') as zf:
+                for grb_id in grbs_ids_to_download:
+                    grb = get_object_or_404(GRB, pk=grb_id)
+                    zf.write(grb.corner.file.name, arcname=grb.corner.name)
+                    zf.write(grb.color.file.name, arcname=grb.color.name)
+                    zf.write(grb.sed.file.name, arcname=grb.sed.name)
+            ZIPFILE_NAME = 'grb_plots.zip'
+            response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
+            return response
+        return redirect("grbs:index")
+    else:
+        return redirect("grbs:index")
+
+def bulkdownload_fits_and_models(request):
+    if request.method == 'GET':
+        form = DownloadForm(request.GET)
+        if form.is_valid():
+            grbs_ids_to_download = list(filter(None,form.cleaned_data['grbs'].split(',')))
+            response = HttpResponse(content_type='application/zip')
+            with zipfile.ZipFile(response, 'w') as zf:
+                for grb_id in grbs_ids_to_download:
+                    grb = get_object_or_404(GRB, pk=grb_id)
+                    zf.write(grb.mod_phot.file.name, arcname=grb.mod_phot.name)
+                    zf.write(grb.mod_spec.file.name, arcname=grb.mod_spec.name)
+            ZIPFILE_NAME = 'grb_fits_and_models.zip'
             response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
             return response
         return redirect("grbs:index")

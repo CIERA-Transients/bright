@@ -8,10 +8,14 @@
 <br>
 
 <input type="button" value="Select/Deselect All" onclick="checkboxes()">
-<input type="button" value="Download Selected" onclick="download_selected()">
+<input type="button" value="Download All Data Products" onclick="download_selected_all()">
+<input type="button" value="Download Only JSON Metadata" onclick="download_selected_json()">
+<input type="button" value="Download Only Samples" onclick="download_selected_samples()">
+
 <br>
 <br>
-<table border="1" class="table table-striped" id="samples" width="100%">
+<div class="single_column">
+<table border="1" class="table table-striped" id="grb_table" width="80%">
     <thead>
         <tr style="text-align: right;">
               <th></th>
@@ -20,7 +24,7 @@
               <th>$$\textrm{Host Dec}$$</th>
               <th>$$z$$</th>
               <th>$$T_{90}$$</th>
-              <th>$$\textrm{Fluence} \textrm{ } (\textrm{erg} \times \textrm{cm}^{-2})$$</th>
+              <th>$$\textrm{Fluence} \textrm{ } (10^{-8} \textrm{erg} \times \textrm{cm}^{-2})$$</th>
               <th>$$\textrm{Optical Detection}$$</th>
               <th>$$\textrm{X-Ray Detection}$$</th>
               <th>$$\textrm{Radio Detection}$$</th>
@@ -37,7 +41,7 @@
         {% for grb in alphabetical_grbs_list %}
             <tr class="grb">
                 <td><input type="checkbox" id={{grb.id }}/></td>
-                <td><img width="100" height="100" class="thumbImage" style="display:block" src=/media/{{ grb.color }}><a href="{% url 'grbs:detail' grb.id %}">$$ \Large \textrm { {{ grb.grb_name }} }$$</a></td>
+                <td><a href="{% url 'grbs:detail' grb.id %}"><img width="100" height="100" class="thumbImage" style="display:block" src=/media/{{ grb.color }}></a><a href="{% url 'grbs:detail' grb.id %}">$$ \Large \textrm { {{ grb.grb_name }} }$$</a></td>
                 <td> $$ \Large \textrm{ {{ grb.ra_host }} }$$</td>
                 <td> $$ \Large \textrm{ {{ grb.dec_host }} }$$</td>
                 <td> $$ \Large {{grb.z}} $$</td>
@@ -56,12 +60,36 @@
                 </tr>
         {% endfor %}
     </tbody>
+    <tfoot >
+        <tr style="text-align: center;">
+              <th></th>
+              <th>$$\small \textrm{GRB name}$$</th>
+              <th>$$\textrm{Host RA}$$</th>
+              <th>$$\textrm{Host Dec}$$</th>
+              <th>$$z$$</th>
+              <th>$$T_{90}$$</th>
+              <th>$$\textrm{Fluence} \textrm{ } (10^{-8} \textrm{erg} \times \textrm{cm}^{-2})$$</th>
+              <th>$$\textrm{Optical Detection}$$</th>
+              <th>$$\textrm{X-Ray Detection}$$</th>
+              <th>$$\textrm{Radio Detection}$$</th>
+              <th>$$\textrm{Offset (kpc)}$$</th>
+              <th>$$\textrm{log}(M/M_{\odot})$$</th>
+              <th>$$t_{m}$$</th>
+              <th>$$\log(Z/Z_{\odot})$$</th>
+              <th>$$A_{V}$$</th>
+              <th>$$\textrm{SFR} (M_{\odot} \times yr^{-1})$$</th>
+              <th></th>
+        </tr>
+    </tfoot>
 </table>
+</div>
 
+
+    <!--
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#samples").fancyTable({
+        $("#grb_table").fancyTable({
             globalSearchExcludeColumns: [1], // Exclude 2nd and 5th column.
             sortColumn:0,
             pagination: true,
@@ -71,21 +99,22 @@
         });
     });
 </script>
+    -->
 
 <script type="text/javascript">
 function checkboxes(){
-    if ($("#samples").find('td input:checkbox').prop('checked')) {
-      $("#samples").find('td input:checkbox').prop('checked', false)
+    if ($("#grb_table").find('td input:checkbox').prop('checked')) {
+      $("#grb_table").find('td input:checkbox').prop('checked', false)
     } else {
-      $("#samples").find('td input:checkbox').prop('checked', true)
+      $("#grb_table").find('td input:checkbox').prop('checked', true)
     }
 };
 </script>
 
 <script type="text/javascript">
-function download_selected(){
-    var url = '/grbs/bulkdownload?grbs=';
-    $("#samples").find('tr.grb').each(function() {
+function download_selected_all(){
+    var url = '/grbs/bulkdownload-all?grbs=';
+    $("#grb_table").find('tr.grb').each(function() {
             if ($(this).find("input:checkbox").prop('checked')) {
                 url = url + $(this).find("td").eq(16).text() + ","
             }
@@ -94,6 +123,78 @@ function download_selected(){
 };
 </script>
 
+<script type="text/javascript">
+function download_selected_json(){
+    var url = '/grbs/bulkdownload-json?grbs=';
+    $("#grb_table").find('tr.grb').each(function() {
+            if ($(this).find("input:checkbox").prop('checked')) {
+                url = url + $(this).find("td").eq(16).text() + ","
+            }
+    });
+    window.open(url);
+};
+</script>
+
+<script type="text/javascript">
+function download_selected_samples(){
+    var url = '/grbs/bulkdownload-samples?grbs=';
+    $("#grb_table").find('tr.grb').each(function() {
+            if ($(this).find("input:checkbox").prop('checked')) {
+                url = url + $(this).find("td").eq(16).text() + ","
+            }
+    });
+    window.open(url);
+};
+</script>
+
+<script>
+$(document).ready(function() {
+  $('#grb_table tfoot th').each( function () {
+    var title = $(this).text();
+    if ( title !== '' ) {
+        $(this).html( '<input size="5" type="text" placeholder="Search" />' );
+    }
+  } );
+
+
+  $('#grb_table').DataTable( {
+    initComplete: function () {
+        // Apply the search
+        this.api().columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
+    },
+    autoWidth: true,
+    dom: 'Bfrtip',
+    buttons: [
+            {
+                extend: 'csv',
+                extension: 'grb_table_data.csv',
+                text: 'Download GRB Table Data to CSV',
+                exportOptions: {
+                      columns: [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                extension: 'grb_table_data.xlsx',
+                text: 'Download GRB Table Data to Excel',
+                exportOptions: {
+                      columns: [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+                }
+            },
+        ]
+  } );
+} );
+</script>
 
     <!--
 <script type="text/javascript">
