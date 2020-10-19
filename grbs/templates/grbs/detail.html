@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<body style="background: white;">
 
 <h1>{{ grb.grb_name }}</h1>
 <div class="row" style="border-bottom-style: solid;">
@@ -18,7 +19,7 @@
 <div class="row" style="border-bottom-style: solid;">
     <div class="column">
         <div id=sed class="img-container">
-            <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
+            <img src=/media/{{ grb.sed }}  alt="SED" style="width:130%">
         </div>
     </div>
     <div class="column">
@@ -28,7 +29,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" style="border-bottom-style: solid;">
     <div class="column">
         <h2>GRB and Host Properties</h2>
         <table border="1" class="table table-striped" id="samples">
@@ -273,15 +274,14 @@
 
 </div>
 </body>
-</html>
 
 <script type="text/javascript">
 $(document).ready(function () {
     $("#sed").find("img").blowup({
-        "width" : 250,
-        "height" : 250,
+        "width" : 350,
+        "height" : 350,
         "round" : false,
-        "scale" : 1.0,
+        "scale" : 0.4,
         "cursor": false,
         });
     $("#color").find("img").blowup({
@@ -292,10 +292,10 @@ $(document).ready(function () {
         "cursor": false,
         });
     $("#corner").find("img").blowup({
-        "width" : 250,
-        "height" : 250,
+        "width" : 350,
+        "height" : 350,
         "round" : false,
-        "scale" : 1.0,
+        "scale" : 0.4,
         "cursor": false,
         });
 })
