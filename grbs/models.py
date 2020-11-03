@@ -198,6 +198,10 @@ class GRB(models.Model):
 
     json_metadata = models.FileField(upload_to='json/', null=True, blank=True, validators=[validate_file_extension])
 
+    gcn = models.URLField(max_length=300,
+        null=True, blank=True, verbose_name='URL for GCN', help_text='URL for GCN'
+    )
+
     def __str__(self):
         return self.grb_name
 
