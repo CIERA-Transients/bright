@@ -277,13 +277,6 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#sed").find("img").blowup({
-        "width" : 350,
-        "height" : 350,
-        "round" : false,
-        "scale" : 0.4,
-        "cursor": false,
-        });
     $("#color").find("img").blowup({
         "width" : 250,
         "height" : 250,
@@ -291,63 +284,40 @@ $(document).ready(function () {
         "scale" : 1.0,
         "cursor": false,
         });
-    $("#corner").find("img").blowup({
-        "width" : 350,
-        "height" : 350,
-        "round" : false,
-        "scale" : 0.4,
-        "cursor": false,
-        });
 })
 </script>
 
-    <!--
 <script type="text/javascript">
  $(document).ready(function(){
-   $("#color").find("img").mouseover(function(){
-        // Put logic on show
-        var imgbox=document.getElementById("colorbox");
-        imgbox.style.visibility='visible';
-        var img = document.createElement("img");
-        img.src = $( this ).prop("src");
-        img.style.width = '450px';
-        img.style.height = '450px';
-        imgbox.innerHTML='';
-        imgbox.appendChild(img);
-   }).mouseout(function(){
-        // Put logic on hide
-        $("#colorbox").find("img").remove();
-   });
    $("#sed").find("img").mouseover(function(){
         // Put logic on show
-        var imgbox=document.getElementById("sedbox");
-        imgbox.style.visibility='visible';
-        var img = document.createElement("img");
-        img.src = $( this ).prop("src");
-        img.style.width = '450px';
-        img.style.height = '450px';
-        imgbox.innerHTML='';
-        imgbox.appendChild(img);
+        var tmp = $("#corner").find("img");
+        tmp.prop("style", "width:0%");
+        this.style.width = '200%';
    }).mouseout(function(){
         // Put logic on hide
-        $("#sedbox").find("img").remove();
+        var tmp = $("#corner").find("img");
+        tmp.prop("style", "width:100%");
+        this.style.width = '130%';
    });
+ });
+ $(document).ready(function(){
    $("#corner").find("img").mouseover(function(){
         // Put logic on show
-        var imgbox=document.getElementById("cornerbox");
-        imgbox.style.visibility='visible';
-        var img = document.createElement("img");
-        img.src = $( this ).prop("src");
-        img.style.width = '450px';
-        img.style.height = '450px';
-        imgbox.innerHTML='';
-        imgbox.appendChild(img);
+        var tmp = $("#sed").find("img");
+        tmp.prop("style", "width:0%");
+        var column = tmp.parent().parent()
+        column.prop("style", "width:100%")
+        this.style.width = '200%';
    }).mouseout(function(){
         // Put logic on hide
-        $("#cornerbox").find("img").remove();
+        var tmp = $("#sed").find("img");
+        tmp.prop("style", "width:130%");
+        var column = tmp.parent().parent()
+        column.prop("style", "width:50%")
+        this.style.width = '100%';
    });
  });
 </script>
-    -->
 
 {% endblock %}
