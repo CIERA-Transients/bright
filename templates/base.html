@@ -43,12 +43,12 @@
 <header>
   <nav id="nav">
     {% with app_name=request.resolver_match.app_name %}
-    <li><a {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %} href="/">Home</a></li>
+    <li><a {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %} href="/welcome">Home</a></li>
     <li><a {% if request.resolver_match.url_name == 'sgrbs' %}class="active"{% endif %} href="/sgrbs">SGRBs</a></li>
     <li><a {% if request.resolver_match.url_name == 'downloadable_data' %}class="active"{% endif %} href="/data-products-description">Data Description</a></li>
     <li><a {% if request.resolver_match.url_name == 'pop_properties' %}class="active"{% endif %} href="/pop-properties">Population Modeling</a></li>
     <li><a {% if request.resolver_match.url_name == 'aboutme' %}class="active"{% endif %} href="/aboutme/">GRB Group</a></li>
-    <li><a {% if app_name == 'grbs' %}class="active"{% endif %} href="/grbs/">Catalogue</a></li>
+    <li><a {% if app_name == 'grbs' %}class="active"{% endif %} href="/">Catalogue</a></li>
     {% if user.is_authenticated %}
         <p>{{ user.email }}
         <p><a href="{% url 'account_logout' %}">Log out</a>
