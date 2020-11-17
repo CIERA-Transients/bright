@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -16,4 +17,7 @@ urlpatterns = [
     path('bulkdownload-json/', views.bulkdownload_json, name='bulkdownload_json'),
     path('bulkdownload-samples/', views.bulkdownload_samples, name='bulkdownload_samples'),
     path('bulkdownload-plots/', views.bulkdownload_plots, name='bulkdownload_plots'),
+    path('sgrbs', TemplateView.as_view(template_name='home/sgrbs.html'), name='sgrbs'),
+    path('pop-properties', TemplateView.as_view(template_name='home/pop_properties.html'), name='pop_properties'),
+    path('data-products-description', TemplateView.as_view(template_name='home/downloadable_data.html'), name='downloadable_data'),
 ]
