@@ -43,42 +43,45 @@ class Command(BaseCommand):
 
             for k, v in grb_metadata.items():
                 # set attributes of model from JSON key, value pairs
-                if k.lower() == 'corner':
-                    try:
-                        grb.corner.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
-                    except:
-                        grb.corner.save(v, File(open(os.path.join(data_dir, v), 'rb')))
-                elif k.lower() == 'sed':
-                    try:
-                        grb.sed.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
-                    except:
-                        grb.sed.save(v, File(open(os.path.join(data_dir, v), 'rb')))
-                elif k.lower() == 'color':
-                    try:
-                        grb.color.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
-                    except:
-                        grb.color.save(v, File(open(os.path.join(data_dir, v), 'rb')))
-                elif k.lower() == 'h5':
-                    try:
-                        grb.h5.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
-                    except:
-                        grb.h5.save(v, File(open(os.path.join(data_dir, v), 'rb')))
-                elif k.lower() == 'mod_phot':
-                    try:
-                        grb.mod_phot.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
-                    except:
-                        grb.mod_phot.save(v, File(open(os.path.join(data_dir, v), 'rb')))
-                elif k.lower() == 'mod_spec':
-                    try:
-                        grb.mod_spec.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
-                    except:
-                        grb.mod_spec.save(v, File(open(os.path.join(data_dir, v), 'rb')))
-                elif k.lower() == 'urls':
-                    for reference, url in v.items():
-                        ref = Reference(grb=grb, shorthand=reference, url=url)
-                        ref.save()
-                else:
-                    setattr(grb, k.lower(), v)
+                try:
+                    if k.lower() == 'corner':
+                        try:
+                            grb.corner.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
+                        except:
+                            grb.corner.save(v, File(open(os.path.join(data_dir, v), 'rb')))
+                    elif k.lower() == 'sed':
+                        try:
+                            grb.sed.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
+                        except:
+                            grb.sed.save(v, File(open(os.path.join(data_dir, v), 'rb')))
+                    elif k.lower() == 'color':
+                        try:
+                            grb.color.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
+                        except:
+                            grb.color.save(v, File(open(os.path.join(data_dir, v), 'rb')))
+                    elif k.lower() == 'h5':
+                        try:
+                            grb.h5.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
+                        except:
+                            grb.h5.save(v, File(open(os.path.join(data_dir, v), 'rb')))
+                    elif k.lower() == 'mod_phot':
+                        try:
+                            grb.mod_phot.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
+                        except:
+                            grb.mod_phot.save(v, File(open(os.path.join(data_dir, v), 'rb')))
+                    elif k.lower() == 'mod_spec':
+                        try:
+                            grb.mod_spec.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
+                        except:
+                            grb.mod_spec.save(v, File(open(os.path.join(data_dir, v), 'rb')))
+                    elif k.lower() == 'urls':
+                        for reference, url in v.items():
+                            ref = Reference(grb=grb, shorthand=reference, url=url)
+                            ref.save()
+                    else:
+                        setattr(grb, k.lower(), v)
+                except:
+                    pass
             grb.save()
 
             # finally we save the fits files

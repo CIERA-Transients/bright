@@ -14,28 +14,28 @@ class GRB(models.Model):
         :param description: Description of grb being sold.
         :type description: str
     """
-    grb_name = models.CharField(max_length=200, help_text='Name of GRB')
+    grb_name = models.CharField(max_length=1000, help_text='Name of GRB')
 
     comments = RichTextField(help_text='Additional info about the GRB that may be of note')
 
-    ra_host = models.CharField(max_length=20,
+    ra_host = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Right Ascension of Host', help_text='Right Ascension, in degrees.'
     )
-    dec_host = models.CharField(max_length=20,
+    dec_host = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Declination of Host', help_text='Declination, in degrees.'
     )
-    tel_pos = models.CharField(max_length=20,
+    tel_pos = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Telescope Position', help_text='Telescope from which sky location is derived'
     )
-    tel_pos_ref = models.CharField(max_length=20,
+    tel_pos_ref = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Telescope Reference', help_text='Reference for sky location information.'
     )
 
-    host_morphology = models.CharField(max_length=20,
+    host_morphology = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Host Galaxy Morphology', help_text='Host galaxy Morphology.'
     )
 
-    host_sf = models.CharField(max_length=20,
+    host_sf = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Host Galaxy Star Formation', help_text='Host Galaxy Star Formation.'
     )
 
