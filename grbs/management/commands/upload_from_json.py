@@ -11,9 +11,13 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument("--json-file", required=True)
+        parser.add_argument("--path-to-data", required=True)
 
     def handle(self, *args, **options):
         if not os.path.isfile(options['json_file']):
+            raise ValueError("Provided JSON file does not exist")
+
+        if not os.path.isdir(options['path_to_data']):
             raise ValueError("Provided JSON file does not exist")
 
         # Change into the directory where the JSON file is, this should contain
@@ -27,6 +31,8 @@ class Command(BaseCommand):
             grb_metadata = json.load(f)
             # get grb_name from json file
             grb_name = json_file.replace('.json', '')
+            # construct path to data directory
+            data_dir = os.path.join(options['path_to_data'], grb_name.upper())
             # see if GRB already exists
             grb = GRB.objects.filter(grb_name=grb_name).first()
             # does not exist need to create a new GRB
@@ -39,34 +45,34 @@ class Command(BaseCommand):
                 # set attributes of model from JSON key, value pairs
                 if k.lower() == 'corner':
                     try:
-                        grb.corner.save(v[0], File(open(v[0], 'rb')))
+                        grb.corner.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
                     except:
-                        grb.corner.save(v, File(open(v, 'rb')))
+                        grb.corner.save(v, File(open(os.path.join(data_dir, v), 'rb')))
                 elif k.lower() == 'sed':
                     try:
-                        grb.sed.save(v[0], File(open(v[0], 'rb')))
+                        grb.sed.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
                     except:
-                        grb.sed.save(v, File(open(v, 'rb')))
+                        grb.sed.save(v, File(open(os.path.join(data_dir, v), 'rb')))
                 elif k.lower() == 'color':
                     try:
-                        grb.color.save(v[0], File(open(v[0], 'rb')))
+                        grb.color.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
                     except:
-                        grb.color.save(v, File(open(v, 'rb')))
+                        grb.color.save(v, File(open(os.path.join(data_dir, v), 'rb')))
                 elif k.lower() == 'h5':
                     try:
-                        grb.h5.save(v[0], File(open(v[0], 'rb')))
+                        grb.h5.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
                     except:
-                        grb.h5.save(v, File(open(v, 'rb')))
+                        grb.h5.save(v, File(open(os.path.join(data_dir, v), 'rb')))
                 elif k.lower() == 'mod_phot':
                     try:
-                        grb.mod_phot.save(v[0], File(open(v[0], 'rb')))
+                        grb.mod_phot.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
                     except:
-                        grb.mod_phot.save(v, File(open(v, 'rb')))
+                        grb.mod_phot.save(v, File(open(os.path.join(data_dir, v), 'rb')))
                 elif k.lower() == 'mod_spec':
                     try:
-                        grb.mod_spec.save(v[0], File(open(v[0], 'rb')))
+                        grb.mod_spec.save(v[0], File(open(os.path.join(data_dir, v[0]), 'rb')))
                     except:
-                        grb.mod_spec.save(v, File(open(v, 'rb')))
+                        grb.mod_spec.save(v, File(open(os.path.join(data_dir, v), 'rb')))
                 elif k.lower() == 'urls':
                     for reference, url in v.items():
                         ref = Reference(grb=grb, shorthand=reference, url=url)
@@ -76,7 +82,8 @@ class Command(BaseCommand):
             grb.save()
 
             # finally we save the fits files
-            for fits_file in glob.glob("*.fits"):
+            for fits_file in glob.glob(os.path.join(data_dir, "*.fits")):
                 fits = Fits(grb=grb)
-                fits.fits.save(fits_file, File(open(fits_file, 'rb')))
+                fits_file_name = os.path.basename(fits_file)
+                fits.fits.save(fits_file_name, File(open(fits_file, 'rb')))
                 fits.save()
