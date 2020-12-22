@@ -207,6 +207,14 @@
                     <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
                 </tr>
 
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Probability of Belonging to Host}$$</td>
+                    {% if grb.pcc is not None %}
+                        <td>$${{grb.pcc}}$$</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
 
                 <tr style="text-align: left;">
                     <td>$$\textrm{log}(M / M_{\odot})$$</td>

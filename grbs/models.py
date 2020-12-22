@@ -39,6 +39,10 @@ class GRB(models.Model):
         null=True, blank=True, verbose_name='Host Galaxy Star Formation', help_text='Host Galaxy Star Formation.'
     )
 
+    pcc = models.FloatField(
+            null=True, blank=True, verbose_name='Probability of belonging to host galaxy', help_text='Probability of belonging to host galaxy'
+    )
+
     t90 = models.FloatField(
             null=True, blank=True, verbose_name='T 90', help_text='??'
     )
