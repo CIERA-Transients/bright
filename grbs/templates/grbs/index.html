@@ -47,7 +47,7 @@
                 <td> $$ \Large \textrm{ {{grb.opt}} }$$</td>
                 <td> $$ \Large \textrm{ {{grb.xray}} }$$</td>
                 <td> $$ \Large \textrm{ {{grb.radio}} }$$</td>
-                <td> $$ \Large {{grb.offset}} $$</td>
+                <td> $$ \Large {{grb.offset_kpc}} $$</td>
                 <td> $$ \Large {{grb.mass}} $$</td>
                 <td> $$ \Large {{grb.age}} $$</td>
                 <td> $$ \Large {{grb.logzsol}} $$</td>
@@ -110,7 +110,7 @@ function checkboxes(){
 
 <script type="text/javascript">
 function download_selected_all(){
-    var url = '/grbs/bulkdownload-all?grbs=';
+    var url = '/bulkdownload-all?grbs=';
     $("#grb_table").find('tr.grb').each(function() {
             if ($(this).find("input:checkbox").prop('checked')) {
                 url = url + $(this).find("td").eq(16).text() + ","
@@ -122,7 +122,7 @@ function download_selected_all(){
 
 <script type="text/javascript">
 function download_selected_json(){
-    var url = '/grbs/bulkdownload-json?grbs=';
+    var url = '/bulkdownload-json?grbs=';
     $("#grb_table").find('tr.grb').each(function() {
             if ($(this).find("input:checkbox").prop('checked')) {
                 url = url + $(this).find("td").eq(16).text() + ","
@@ -134,7 +134,7 @@ function download_selected_json(){
 
 <script type="text/javascript">
 function download_selected_samples(){
-    var url = '/grbs/bulkdownload-samples?grbs=';
+    var url = '/bulkdownload-samples?grbs=';
     $("#grb_table").find('tr.grb').each(function() {
             if ($(this).find("input:checkbox").prop('checked')) {
                 url = url + $(this).find("td").eq(16).text() + ","

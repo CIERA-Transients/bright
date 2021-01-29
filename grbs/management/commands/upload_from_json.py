@@ -25,6 +25,7 @@ class Command(BaseCommand):
         os.chdir(os.path.dirname(options['json_file']))
 
         # Get the full path to the json file
+        print("Processing {0}".format(options['json_file']))
         json_file = os.path.basename(options['json_file'])
 
         with open(json_file, 'r') as f:
