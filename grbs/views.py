@@ -9,9 +9,15 @@ import io
 
 @user_passes_test(lambda u: u.is_superuser)
 def index(request):
-    alphabetical_grbs_list = GRB.objects.order_by('grb_name')
+    alphabetical_grbs_list = GRB.objects.filter(type_grb="short").order_by('grb_name')
     context = {'alphabetical_grbs_list': alphabetical_grbs_list}
     return render(request, 'grbs/index.html', context)
+
+@user_passes_test(lambda u: u.is_superuser)
+def lgrb(request):
+    alphabetical_grbs_list = GRB.objects.filter(type_grb="long").order_by('grb_name')
+    context = {'alphabetical_grbs_list': alphabetical_grbs_list}
+    return render(request, 'grbs/lgrb_index.html', context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def detail(request, grb_id):

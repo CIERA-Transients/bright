@@ -16,7 +16,13 @@ class GRB(models.Model):
     """
     grb_name = models.CharField(max_length=1000, help_text='Name of GRB')
 
-    comments = RichTextField(help_text='Additional info about the GRB that may be of note')
+    comments = RichTextField(help_text='Additional info about the GRB that may be of note',  null=True, blank=True,)
+
+    TYPE_CHOICES = (
+        ('short', 'short'),
+        ('long', 'long'),
+    )
+    type_grb = models.CharField(max_length=20, choices=TYPE_CHOICES)
 
     ra_host = models.CharField(max_length=100,
         null=True, blank=True, verbose_name='Right Ascension of Host', help_text='Right Ascension, in degrees.'
@@ -177,6 +183,18 @@ class GRB(models.Model):
         null=True, blank=True, verbose_name='Star Formation Rate Lower Error', help_text='Star Formation Rate Lower Error'
     )
 
+    frac_flux = models.FloatField(
+        null=True, blank=True, verbose_name='frac_flux', help_text='frac_flux.'
+    )
+
+    hnorm_offset = models.FloatField(
+        null=True, blank=True, verbose_name='hnorm_offset', help_text='hnorm_offset'
+    )
+
+    halflightrad = models.FloatField(
+        null=True, blank=True, verbose_name='halflightrad', help_text='halflightrad'
+    )
+
     phot = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_err = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_wave = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
@@ -197,6 +215,8 @@ class GRB(models.Model):
     sed = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
 
     color = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
+
+    afterglow = models.ImageField(upload_to='images/', null=True, blank=True, validators=[validate_image_extension])
 
     h5 = models.FileField(upload_to='samples/', null=True, blank=True, validators=[validate_file_extension])
 
