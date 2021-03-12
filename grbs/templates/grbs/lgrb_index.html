@@ -2,17 +2,9 @@
 
 {% block content %}
 
-<h1>Welcome to BRIGHT: Open LGRB Catalogue</h1>
-
-<input type="button" value="Select/Deselect All" onclick="checkboxes()">
-<input type="button" value="Download All Data Products" onclick="download_selected_all()">
-<input type="button" value="Download Only JSON Metadata" onclick="download_selected_json()">
-<input type="button" value="Download Only Samples" onclick="download_selected_samples()">
-
-<br>
-<br>
+<h1>Welcome to BRIGHT: Open Long GRB Catalogue</h1>
 <div class="single_column">
-<table border="1" class="table table-striped" id="grb_table" width="80%">
+<table border="1" class="table" id="grb_table" width="80%">
     <thead>
         <tr style="text-align: right;">
               <th></th>
@@ -26,12 +18,10 @@
               <th>$$\textrm{X-Ray Detection}$$</th>
               <th>$$\textrm{Radio Detection}$$</th>
               <th>$$\textrm{Offset (kpc)}$$</th>
-              <th>$$\textrm{log}(M/M_{\odot})$$</th>
-              <th>$$t_{m}$$</th>
-              <th>$$\log(Z/Z_{\odot})$$</th>
-              <th>$$A_{V}$$</th>
-              <th>$$\textrm{SFR} (M_{\odot} \times yr^{-1})$$</th>
+              <th>$$\textrm{Host Normalized Offset}$$</th>
+              <th>$$\textrm{Fractional Flux}$$</th>
               <th>$$\textrm{Download}$$</th>
+              <th>$$\small \textrm{GRB name}$$</th>
         </tr>
     </thead>
     <tbody>
@@ -48,12 +38,10 @@
                 <td> $$ \Large \textrm{ {{grb.xray}} }$$</td>
                 <td> $$ \Large \textrm{ {{grb.radio}} }$$</td>
                 <td> $$ \Large {{grb.offset_kpc}} $$</td>
-                <td> $$ \Large {{grb.mass}} $$</td>
-                <td> $$ \Large {{grb.age}} $$</td>
-                <td> $$ \Large {{grb.logzsol}} $$</td>
-                <td> $$ \Large {{grb.dust2}} $$</td>
-                <td> $$ \Large {{grb.sfr}} $$</td>
+                <td> $$ \Large {{grb.hnorm_offset}} $$</td>
+                <td> $$ \Large {{grb.frac_flux}} $$</td>
                 <td><a href="/media/{{ grb.json_metadata }}">$$ {{grb.id }} $$</a></td>
+                <td> $$ \Large \textrm{ {{grb.grb_name}} }$$</td>
                 </tr>
         {% endfor %}
     </tbody>
@@ -70,59 +58,18 @@
               <th>$$\textrm{X-Ray Detection}$$</th>
               <th>$$\textrm{Radio Detection}$$</th>
               <th>$$\textrm{Offset (kpc)}$$</th>
-              <th>$$\textrm{log}(M/M_{\odot})$$</th>
-              <th>$$t_{m}$$</th>
-              <th>$$\log(Z/Z_{\odot})$$</th>
-              <th>$$A_{V}$$</th>
-              <th>$$\textrm{SFR} (M_{\odot} \times yr^{-1})$$</th>
+              <th>$$\textrm{Host Normalized Offset}$$</th>
+              <th>$$\textrm{Fractional Flux}$$</th>
               <th></th>
+              <th>$$\small \textrm{GRB name}$$</th>
         </tr>
     </tfoot>
 </table>
 </div>
 
-
-    <!--
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#grb_table").fancyTable({
-            globalSearchExcludeColumns: [1], // Exclude 2nd and 5th column.
-            sortColumn:0,
-            pagination: true,
-            perPage:10,
-            globalSearch:false,
-            inputStyle: 'color:purple;'
-        });
-    });
-</script>
-    -->
-
-<script type="text/javascript">
-function checkboxes(){
-    if ($("#grb_table").find('td input:checkbox').prop('checked')) {
-      $("#grb_table").find('td input:checkbox').prop('checked', false)
-    } else {
-      $("#grb_table").find('td input:checkbox').prop('checked', true)
-    }
-};
-</script>
-
 <script type="text/javascript">
 function download_selected_all(){
     var url = '/bulkdownload-all?grbs=';
-    $("#grb_table").find('tr.grb').each(function() {
-            if ($(this).find("input:checkbox").prop('checked')) {
-                url = url + $(this).find("td").eq(16).text() + ","
-            }
-    });
-    window.open(url);
-};
-</script>
-
-<script type="text/javascript">
-function download_selected_json(){
-    var url = '/bulkdownload-json?grbs=';
     $("#grb_table").find('tr.grb').each(function() {
             if ($(this).find("input:checkbox").prop('checked')) {
                 url = url + $(this).find("td").eq(16).text() + ","
@@ -154,7 +101,7 @@ $(document).ready(function() {
   } );
 
 
-  $('#grb_table').DataTable( {
+  var table = $('#grb_table').DataTable( {
     initComplete: function () {
         // Apply the search
         this.api().columns().every( function () {
@@ -170,14 +117,72 @@ $(document).ready(function() {
         } );
     },
     autoWidth: true,
-    dom: 'Bfrtip',
+    dom: 'Blfrtip',
     buttons: [
+            {
+                text: 'Select all',
+                action: function () {
+                      table.rows().every(function(){
+                        $(this.node()).find('td:eq(0) [type="checkbox"]').prop('checked', true);
+                      });
+                }
+            },
+            {
+                text: 'Select none',
+                action: function () {
+                      table.rows().every(function(){
+                        $(this.node()).find('td:eq(0) [type="checkbox"]').prop('checked', false);
+                      });
+                }
+            },
+            {
+                text: 'Download All Data Products',
+                action: function () {
+                      var url = '/bulkdownload-all?grbs=';
+                      table.rows().every(function(){
+                        if($(this.node()).find('td:eq(0) [type="checkbox"]').prop('checked')){
+                            var grb_id_string = $(this.node()).find('td:eq(16)').text();
+                            url = url + grb_id_string + ","
+                        }
+                      })
+                      console.log(url);
+                      window.open(url);
+                }
+            },
+            {
+                text: 'Download Only Samples',
+                action: function () {
+                      var url = '/bulkdownload-samples?grbs=';
+                      table.rows().every(function(){
+                        if($(this.node()).find('td:eq(0) [type="checkbox"]').prop('checked')){
+                            var grb_id_string = $(this.node()).find('td:eq(16)').text();
+                            url = url + grb_id_string + ","
+                        }
+                      })
+                      console.log(url);
+                      window.open(url);
+                }
+            },
+            {
+                text: 'Download Only JSON Metadata',
+                action: function () {
+                      var url = '/bulkdownload-json?grbs=';
+                      table.rows().every(function(){
+                        if($(this.node()).find('td:eq(0) [type="checkbox"]').prop('checked')){
+                            var grb_id_string = $(this.node()).find('td:eq(16)').text();
+                            url = url + grb_id_string + ","
+                        }
+                      })
+                      console.log(url);
+                      window.open(url);
+                }
+            },
             {
                 extend: 'csv',
                 extension: 'grb_table_data.csv',
                 text: 'Download GRB Table Data to CSV',
                 exportOptions: {
-                      columns: [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+                      columns: [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17 ]
                 }
             },
             {
@@ -185,28 +190,13 @@ $(document).ready(function() {
                 extension: 'grb_table_data.xlsx',
                 text: 'Download GRB Table Data to Excel',
                 exportOptions: {
-                      columns: [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+                      columns: [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17 ]
                 }
             },
         ]
   } );
 } );
 </script>
-
-    <!--
-<script type="text/javascript">
- $(document).ready(function(){
-   $("#samples").find('tr.grb').mouseover(function(){
-        // Put logic on show
-        $('.thumbImage').prop("style", "display:block");
-   }).mouseout(function(){
-        // Put logic on hide
-        $('.thumbImage').prop("style", "display:none");
-   });
- });
-</script>
-    -->
-
 
 </body>
 </html>

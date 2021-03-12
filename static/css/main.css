@@ -25,10 +25,16 @@ table {
   padding: 10px;
 }
 
-.column {
+.column_individual_page_images {
   float: left;
-  width: 50.0%;
-  padding: 50px;
+  width: 45.0%;
+  padding: 0px;
+}
+
+.column_individual_page_table {
+  float: left;
+  width: 40.0%;
+  padding: 40px;
 }
 
 /* Clear floats after image containers */
@@ -49,7 +55,7 @@ header > nav {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 1200px;
+// max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -77,7 +83,7 @@ header > nav > li > a:active, header > nav > li > a:visited {
 }
 
 main {
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 1em;
 }

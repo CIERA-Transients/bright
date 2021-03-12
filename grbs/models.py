@@ -195,6 +195,10 @@ class GRB(models.Model):
         null=True, blank=True, verbose_name='halflightrad', help_text='halflightrad'
     )
 
+    eff_rad = models.FloatField(
+        null=True, blank=True, verbose_name='eff_rad', help_text='eff_rad'
+    )
+
     phot = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_err = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)
     phot_wave = ArrayField(models.FloatField(null=True, blank=True,), blank=True, null=True)

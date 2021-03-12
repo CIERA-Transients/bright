@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main style="background: white;">
+
+<h1>{{ grb.grb_name }}</h1>
+<div class="row" style="border-bottom-style: solid;">
+    <div class="column_top" id=color>
+        <img src=/media/{{ grb.color }} width="150" height="150">
+    </div>
+    <div class="col-sm-2">
+        <li><a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a></li>
+        <li><a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a></li>
+        <li><a href="{{ grb.gcn }}"><u>Link To GCN</u></a></li>
+    </div>
+</div>
+
+
+<div class="row" style="border-bottom-style: solid;">
+    <div class="column_individual_page_images">
+        <div id=sed class="img-container">
+            <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
+        </div>
+    </div>
+    <div class="column_individual_page_images">
+        <div id=corner class="img-container">
+            <img src=/media/{{ grb.corner }} alt="corner" style="width:100%">
+        </div>
+    </div>
+</div>
+
+<div class="row" style="border-bottom-style: solid;">
+    <div class="column_individual_page_table">
+        <h2>GRB and Host Properties</h2>
+        <table border="1" class="table table-striped" id="samples">
+            <thead>
+                <th>Attribute</th>
+                <th>Values</th>
+                <th>Telescope</th>
+                <th>Ref</th>
+            </thead>
+            <tbody>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{GRB Name}$$</td>
+                    <td><a href="{% url 'grbs:detail' grb.id %}">$$\textrm{ {{ grb.grb_name }} }$$</a></td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Host RA}$$</td>
+                    <td>$$\textrm{ {{ grb.ra_host }} }$$</td>
+                    <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.tel_pos_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.tel_pos_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.tel_pos_ref}} }$$</td>
+                    {% endif %}
+
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Host Dec}$$</td>
+                    <td>$$\textrm{ {{ grb.dec_host }} }$$</td>
+                    <td>$$\textrm{ {{ grb.tel_pos }} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.tel_pos_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.tel_pos_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.tel_pos_ref}} }$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$T_{90}$$</td>
+                    <td> \({{grb.t90}}^{ + {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Fluence} \textrm{ } (10^{-8} \textrm{erg} \times \textrm{cm}^{-2})$$</td>
+                    <td> \({{grb.fluence}}^{ + {{ grb.fluence_err_upper }} }_{ {{ grb.fluence_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{X-Ray Detection}$$</td>
+                    <td>$$\textrm{ {{ grb.xray }} }$$</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Optical Detection}$$</td>
+                    <td>$$\textrm{ {{ grb.opt }} }$$</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Radio Detection}$$</td>
+                    <td>$$\textrm{ {{ grb.radio }} }$$</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                {% for phot, phot_err, phot_tel, phot_ref, filters, fits_file in phot_zip %}
+                    <tr style="text-align: left;">
+                        <td>$$ {{filters }} $$<a href="/media/{{ fits_file.fits }}"> $$\textrm{FITS}$$ </a></td>
+                        <td> \({{phot}}^{ + {{ phot_err }} }_{ -{{ phot_err }} }\)</td>
+                        <td>$$\textrm{ {{phot_tel}} }$$</td>
+                        {% if references|length > 0  %}
+                            {% for shorthand, urls in references.items %}
+                                {% if shorthand == phot_ref %}
+                                    <td><a href={{urls}}> $$\textrm{ {{phot_ref}} }$$ </a></td>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <td>$$\textrm{ {{phot_ref}} }$$</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{observed spectroscopy}$$</td>
+                    <td><a href="/media/{{ grb.spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
+                    <td>$$\textrm{ {{grb.spec_tel}} }$$</td>
+                    {% if references|length > 0  %}
+                        {% for shorthand, urls in references.items %}
+                            {% if shorthand == grb.spec_ref %}
+                                <td><a href={{urls}}> $$\textrm{ {{grb.spec_ref}} }$$ </a></td>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <td>$$\textrm{ {{grb.spec_ref}} }$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{model photometry}$$</td>
+                    <td> <a href="/media/{{ grb.mod_phot }}"><u>$$\textrm{Download CSV}$$</u></a></td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{model spectroscopy}$$</td>
+                    <td> <a href="/media/{{ grb.mod_spec }}"><u>$$\textrm{Download CSV}$$</u></a></td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+           </tbody>
+        </table>
+    </div>
+
+    <div class="column_individual_page_table">
+        <h2>Stellar Population Properties</h2>
+
+        <table border="1" class="table table-striped" id="samples">
+            <thead>
+                <th>Attribute</th>
+                <th>Values</th>
+            </thead>
+            <tbody>
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Host Morphology}$$</td>
+                    {% if grb.host_morphology is not None %}
+                        <td>\(\textrm{ {{grb.host_morphology}} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Host Star Formation}$$</td>
+                    {% if grb.host_sf is not None %}
+                        <td>\(\textrm{ {{grb.host_sf}} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$z$$</td>
+                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Offset}$$</td>
+                    <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Offset (kpc)}$$</td>
+                    <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Effective Radius}$$</td>
+                    {% if grb.eff_rad is not None %}
+                        <td>$${{grb.eff_rad}}$$</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Host Normalized Offset}$$</td>
+                    {% if grb.hnorm_offset is not None %}
+                        <td>$${{grb.hnorm_offset}}$$</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Probability of Chance Coincidence}$$</td>
+                    {% if grb.pcc is not None %}
+                        <td>$${{grb.pcc}}$$</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{log}(M / M_{\odot})$$</td>
+                    {% if grb.mass is not None %}
+                        <td>\({{grb.mass}}^{ + {{ grb.mass_err_upper }} }_{ {{ grb.mass_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$t_{m}$$</td>
+                    {% if grb.age is not None %}
+                        <td> \({{grb.age}}^{ + {{ grb.age_err_upper }} }_{ {{ grb.age_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{SFR} (M_{\odot} \times yr^{-1})$$</td>
+                    {% if grb.sfr is not None %}
+                        <td> \({{grb.sfr}}^{ + {{ grb.sfr_err_upper }} }_{ {{ grb.sfr_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\log(Z/Z_{\odot})$$</td>
+                    {% if grb.logzsol is not None %}
+                        <td> \({{grb.logzsol}}^{ + {{ grb.logzsol_err_upper }} }_{ {{ grb.logzsol_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{GAS} \log(Z/Z_{\odot})$$</td>
+                    {% if grb.gas_logz is not None %}
+                        <td> \({{grb.gas_logz}}^{ + {{ grb.gas_logz_err_upper }} }_{ {{ grb.gas_logz_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$A_{V1}$$</td>
+                    {% if grb.dust1 is not None %}
+                        <td> \({{grb.dust1}}^{ + {{ grb.dust1_err_upper }} }_{ {{ grb.dust1_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$A_{V2}$$</td>
+                    {% if grb.dust2 is not None %}
+                        <td> \({{grb.dust2}}^{ + {{ grb.dust2_err_upper }} }_{ {{ grb.dust2_err_lower }} }\)</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+            </tbody>
+        </table>
+        * {{grb.comments}}
+    </div>
+
+</div>
+</main>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#color").find("img").blowup({
+        "width" : 250,
+        "height" : 250,
+        "round" : false,
+        "scale" : 1.0,
+        "cursor": false,
+        });
+})
+</script>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+   $("#sed").find("img").mouseover(function(){
+        // Put logic on show
+        var tmp = $("#corner").find("img");
+        tmp.prop("style", "width:0%");
+        this.style.width = '200%';
+   }).mouseout(function(){
+        // Put logic on hide
+        var tmp = $("#corner").find("img");
+        tmp.prop("style", "width:100%");
+        this.style.width = '100%';
+   });
+ });
+ $(document).ready(function(){
+   $("#corner").find("img").mouseover(function(){
+        // Put logic on show
+        var tmp = $("#sed").find("img");
+        tmp.prop("style", "width:0%");
+        var column = tmp.parent().parent()
+        column.prop("style", "width:100%")
+        this.style.width = '200%';
+   }).mouseout(function(){
+        // Put logic on hide
+        var tmp = $("#sed").find("img");
+        tmp.prop("style", "width:100%");
+        var column = tmp.parent().parent()
+        column.prop("style", "width:50%")
+        this.style.width = '100%';
+   });
+ });
+</script>
+
+{% endblock %}

@@ -6,7 +6,7 @@ from . import views
 app_name = 'grbs'
 urlpatterns = [
     # ex: /grbs/
-    path('', views.index, name='index'),
+    path('', views.index, name='sgrb_index'),
     # ex: /grbs/1/
     path('<int:grb_id>/', views.detail, name='detail'),
     # ex: /grbs/add_grb

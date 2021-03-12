@@ -9,11 +9,10 @@
     <div class="column_top" id=color>
         <img src=/media/{{ grb.color }} width="150" height="150">
     </div>
-    <div class="column_top">
-        <h6 style="float: left"> <a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a> </h6>
-        <br>
-        <h6 style="float: center"> <a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a> </h6>
-        <h6 style="float: left"> <a href="{{ grb.gcn }}"><u>Link To GCN</u></a> </h6>
+    <div class="col-sm-2">
+        <li><a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a></li>
+        <li><a href="/media/{{ grb.json_metadata }}"><u>Download Metadata</u></a></li>
+        <li><a href="{{ grb.gcn }}"><u>Link To GCN</u></a></li>
     </div>
 </div>
 
@@ -32,7 +31,7 @@
 </div>
 
 <div class="row" style="border-bottom-style: solid;">
-    <div class="column">
+    <div class="column_individual_page_table">
         <h2>GRB and Host Properties</h2>
         <table border="1" class="table table-striped" id="samples">
             <thead>
@@ -90,6 +89,13 @@
                 <tr style="text-align: left;">
                     <td>$$\textrm{Fluence} \textrm{ } (10^{-8} \textrm{erg} \times \textrm{cm}^{-2})$$</td>
                     <td> \({{grb.fluence}}^{ + {{ grb.fluence_err_upper }} }_{ {{ grb.fluence_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
+                    <td>$$\textrm{Fractional Flux} $$</td>
+                    <td> \({{grb.frac_flux}}\)</td>
                     <td>$$-$$</td>
                     <td>$$-$$</td>
                 </tr>
@@ -165,7 +171,7 @@
         </table>
     </div>
 
-    <div class="column">
+    <div class="column_individual_page_table">
         <h2>Stellar Population Properties</h2>
 
         <table border="1" class="table table-striped" id="samples">
@@ -205,6 +211,24 @@
               <tr style="text-align: left;">
                     <td>$$\textrm{Offset (kpc)}$$</td>
                     <td> \({{grb.offset_kpc}}^{ + {{ grb.offset_kpc_err_upper }} }_{ {{ grb.offset_kpc_err_lower }} }\)</td>
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Effective Radius}$$</td>
+                    {% if grb.eff_rad is not None %}
+                        <td>$${{grb.eff_rad}}$$</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
+                </tr>
+
+              <tr style="text-align: left;">
+                    <td>$$\textrm{Host Normalized Offset}$$</td>
+                    {% if grb.hnorm_offset is not None %}
+                        <td>$${{grb.hnorm_offset}}$$</td>
+                    {% else %}
+                        <td>$$-$$</td>
+                    {% endif %}
                 </tr>
 
               <tr style="text-align: left;">
