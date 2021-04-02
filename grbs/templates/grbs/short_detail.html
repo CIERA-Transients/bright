@@ -80,6 +80,13 @@
                 </tr>
 
                 <tr style="text-align: left;">
+                    <td>$$z^{*}$$</td>
+                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
+                    <td>$$-$$</td>
+                    <td>$$-$$</td>
+                </tr>
+
+                <tr style="text-align: left;">
                     <td>$$T_{90}$$</td>
                     <td> \({{grb.t90}}^{ + {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
                     <td>$$-$$</td>
@@ -162,6 +169,7 @@
 
            </tbody>
         </table>
+        * {{grb.comments}}
     </div>
 
     <div class="column_individual_page_table">
@@ -191,11 +199,6 @@
                     {% endif %}
                 </tr>
 
-                <tr style="text-align: left;">
-                    <td>$$z$$</td>
-                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
-                </tr>
-
               <tr style="text-align: left;">
                     <td>$$\textrm{Offset}$$</td>
                     <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
@@ -207,7 +210,7 @@
                 </tr>
 
               <tr style="text-align: left;">
-                    <td>$$\textrm{Effective Radius}$$</td>
+                    <td>$$\textrm{Effective Radius } (r_{e})$$</td>
                     {% if grb.eff_rad is not None %}
                         <td>$${{grb.eff_rad}}$$</td>
                     {% else %}
@@ -216,7 +219,7 @@
                 </tr>
 
               <tr style="text-align: left;">
-                    <td>$$\textrm{Host Normalized Offset}$$</td>
+                    <td>$$\textrm{Host Normalized Offset } (\delta R/r_{e})$$</td>
                     {% if grb.hnorm_offset is not None %}
                         <td>$${{grb.hnorm_offset}}$$</td>
                     {% else %}
@@ -298,7 +301,6 @@
 
             </tbody>
         </table>
-        * {{grb.comments}}
     </div>
 
 </div>
