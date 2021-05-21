@@ -85,8 +85,8 @@ header > nav > li > a:active, header > nav > li > a:visited {
 
 main {
   max-width: 1500px;
-  margin: 0 auto;
-  padding: 1em;
+  //margin: 0 auto;
+  //padding: 1em;
 }
 
 form label {

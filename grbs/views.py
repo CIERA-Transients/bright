@@ -73,13 +73,34 @@ def bulkdownload_all(request):
             with zipfile.ZipFile(response, 'w') as zf:
                 for grb_id in grbs_ids_to_download:
                     grb = get_object_or_404(GRB, pk=grb_id)
-                    zf.write(grb.corner.file.name, arcname=grb.corner.name)
-                    zf.write(grb.color.file.name, arcname=grb.color.name)
-                    zf.write(grb.sed.file.name, arcname=grb.sed.name)
-                    zf.write(grb.h5.file.name, arcname=grb.h5.name)
-                    zf.write(grb.mod_phot.file.name, arcname=grb.mod_phot.name)
-                    zf.write(grb.mod_spec.file.name, arcname=grb.mod_spec.name)
-                    zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
+                    try:
+                        zf.write(grb.corner.file.name, arcname=grb.corner.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.color.file.name, arcname=grb.color.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.sed.file.name, arcname=grb.sed.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.h5.file.name, arcname=grb.h5.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.mod_phot.file.name, arcname=grb.mod_phot.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.mod_spec.file.name, arcname=grb.mod_spec.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
+                    except:
+                        pass
             ZIPFILE_NAME = 'grb_alldata.zip'
             response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
             return response
@@ -96,7 +117,10 @@ def bulkdownload_json(request):
             with zipfile.ZipFile(response, 'w') as zf:
                 for grb_id in grbs_ids_to_download:
                     grb = get_object_or_404(GRB, pk=grb_id)
-                    zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
+                    try:
+                        zf.write(grb.json_metadata.file.name, arcname=grb.json_metadata.name)
+                    except:
+                        pass
             ZIPFILE_NAME = 'grb_json_metadata.zip'
             response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
             return response
@@ -113,7 +137,10 @@ def bulkdownload_samples(request):
             with zipfile.ZipFile(response, 'w') as zf:
                 for grb_id in grbs_ids_to_download:
                     grb = get_object_or_404(GRB, pk=grb_id)
-                    zf.write(grb.h5.file.name, arcname=grb.h5.name)
+                    try:
+                        zf.write(grb.h5.file.name, arcname=grb.h5.name)
+                    except:
+                        pass
             ZIPFILE_NAME = 'grb_samples.zip'
             response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
             return response
@@ -130,9 +157,18 @@ def bulkdownload_plots(request):
             with zipfile.ZipFile(response, 'w') as zf:
                 for grb_id in grbs_ids_to_download:
                     grb = get_object_or_404(GRB, pk=grb_id)
-                    zf.write(grb.corner.file.name, arcname=grb.corner.name)
-                    zf.write(grb.color.file.name, arcname=grb.color.name)
-                    zf.write(grb.sed.file.name, arcname=grb.sed.name)
+                    try:
+                        zf.write(grb.corner.file.name, arcname=grb.corner.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.color.file.name, arcname=grb.color.name)
+                    except:
+                        pass
+                    try:
+                        zf.write(grb.sed.file.name, arcname=grb.sed.name)
+                    except:
+                        pass
             ZIPFILE_NAME = 'grb_plots.zip'
             response['Content-Disposition'] = f'attachment; filename={ZIPFILE_NAME}'
             return response
