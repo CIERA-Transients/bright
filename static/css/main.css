@@ -10,7 +10,8 @@ html, body {
 
 table { 
     width:100%;
-    font: 400 10px/1.5 "Campton Extra Light", sans-serif;
+    font: 400 20px/1.5 'Avenir', Helvetica, sans-serif;
+    text-align:center;
 }
 
  /* Three image containers (use 25% for four, and 50% for two, etc) */
