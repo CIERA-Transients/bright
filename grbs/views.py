@@ -27,10 +27,11 @@ def detail(request, grb_id):
     references_dict = {}
     for ref in references:
         references_dict[ref.shorthand] = ref.url
-    try:
+
+    if not fits_files:
+        phot_zip = zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, len(grb.filters)*[None])
+    else:
         phot_zip = zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, fits_files)
-    except:
-        phot_zip = {}
 
     if grb.type_grb == "short":
         return render(request, 'grbs/short_detail.html', {'grb': grb, 'phot_zip' : phot_zip, 'references': references_dict})

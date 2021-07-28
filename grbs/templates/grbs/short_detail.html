@@ -123,7 +123,11 @@
 
                 {% for phot, phot_err, phot_tel, phot_ref, filters, fits_file in phot_zip %}
                     <tr style="text-align: left;">
-                        <td>$$ {{filters }} $$<a href="/media/{{ fits_file.fits }}"> $$\textrm{FITS}$$ </a></td>
+                        {% if fits_file is not None %}
+                            <td>$$ {{filters }} $$<a href="/media/{{ fits_file.fits }}"> $$\textrm{FITS}$$ </a></td>
+                        {% else %}
+                            <td>$$\textrm{ {{filters}} }$$</td>
+                        {% endif %}
                         <td> \({{phot}}^{ + {{ phot_err }} }_{ -{{ phot_err }} }\)</td>
                         <td>$$\textrm{ {{phot_tel}} }$$</td>
                         {% if references|length > 0  %}

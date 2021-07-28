@@ -34,8 +34,8 @@ table {
 
 .column_individual_page_table {
   float: left;
-  width: 40.0%;
-  padding: 40px;
+  width: 45.0%;
+  padding: 10px;
 }
 
 /* Clear floats after image containers */
@@ -84,7 +84,7 @@ header > nav > li > a:active, header > nav > li > a:visited {
 }
 
 main {
-  max-width: 1500px;
+  //max-width: 1500px;
   //margin: 0 auto;
   //padding: 1em;
 }
