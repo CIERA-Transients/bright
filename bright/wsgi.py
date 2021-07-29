@@ -13,10 +13,10 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bright.settings')
 os.environ['HTTPS'] = "on"
-os.environ['BRIGHT_DATABASE_NAME'] = ""
-os.environ['BRIGHT_USER'] = ""
-os.environ['BRIGHT_PASSWORD'] = ""
-os.environ['BRIGHT_HOST'] = ""
-os.environ['BRIGHT_PORT'] = ""
+os.environ['BRIGHT_DATABASE_NAME'] = "bright"
+os.environ['BRIGHT_USER'] = "bright"
+os.environ['BRIGHT_PASSWORD'] = "brightadmin"
+os.environ['BRIGHT_HOST'] = "bright.ciera.northwestern.edu"
+os.environ['BRIGHT_PORT'] = "5432"
 
 application = get_wsgi_application()
