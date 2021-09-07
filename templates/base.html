@@ -29,12 +29,17 @@
   <nav id="nav">
     {% with app_name=request.resolver_match.app_name %}
     <li><a {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %} href="/welcome">Home</a></li>
-    <li><a {% if request.resolver_match.url_name == 'sgrbs' %}class="active"{% endif %} href="/sgrbs">SGRBs</a></li>
-    <li><a {% if request.resolver_match.url_name == 'downloadable_data' %}class="active"{% endif %} href="/data-products-description">Data Description</a></li>
-    <li><a {% if request.resolver_match.url_name == 'pop_properties' %}class="active"{% endif %} href="/pop-properties">Population Modeling</a></li>
-    <li><a {% if request.resolver_match.url_name == 'aboutme' %}class="active"{% endif %} href="/aboutme/">GRB Group</a></li>
+    <li> <div class="dropdown">
+         <button class="dropbtn">SGRBs</button>
+         <div class="dropdown-content">
+                <a {% if request.resolver_match.url_name == 'sgrbs' %}class="active"{% endif %} href="/sgrbs">SGRBs</a>
+                <a {% if request.resolver_match.url_name == 'downloadable_data' %}class="active"{% endif %} href="/data-products-description">Data Description</a>
+                <a {% if request.resolver_match.url_name == 'pop_properties' %}class="active"{% endif %} href="/pop-properties">Population Modeling</a>
+         </div>
+        
     <li><a {% if request.resolver_match.url_name == 'sgrb_index' %}class="active"{% endif %} href="/">SGRB Catalogue</a></li>
     <li><a {% if request.resolver_match.url_name == 'lgrb' %}class="active"{% endif %} href="/lgrb-catalogue/">LGRB Catalogue</a></li>
+
     {% if user.is_authenticated %}
         <p>{{ user.email }}
         <p><a href="{% url 'account_logout' %}">Log out</a>
