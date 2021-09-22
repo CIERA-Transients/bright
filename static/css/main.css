@@ -35,8 +35,9 @@ table {
 .column_individual_page_table {
   float: left;
   width: 45.0%;
-  padding: 10px;
+  padding: 50px;
   display: flex;
+  flex-direction: row;
 }
 
 /* Clear floats after image containers */
@@ -115,7 +116,7 @@ label {
     display: block;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 600px) {
   header > nav {
     flex-direction: column;
   }
