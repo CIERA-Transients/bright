@@ -36,6 +36,7 @@ table {
   float: left;
   width: 45.0%;
   padding: 10px;
+  display: flex;
 }
 
 /* Clear floats after image containers */
