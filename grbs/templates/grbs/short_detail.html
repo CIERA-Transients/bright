@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="row" style="border-bottom-style: solid;">
+<div class="row" display="flex" style="border-bottom-style: solid;">
     <div class="column_individual_page_table">
         <h2>GRB and Host Properties</h2>
         <table border="1" class="table table-striped" id="samples">
@@ -286,16 +286,7 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$A_{V1}$$</td>
-                    {% if grb.dust1 is not None %}
-                        <td> \({{grb.dust1}}^{ + {{ grb.dust1_err_upper }} }_{ {{ grb.dust1_err_lower }} }\)</td>
-                    {% else %}
-                        <td>$$-$$</td>
-                    {% endif %}
-                </tr>
-
-                <tr style="text-align: left;">
-                    <td>$$A_{V2}$$</td>
+                    <td>$$A_{V}$$</td>
                     {% if grb.dust2 is not None %}
                         <td> \({{grb.dust2}}^{ + {{ grb.dust2_err_upper }} }_{ {{ grb.dust2_err_lower }} }\)</td>
                     {% else %}
