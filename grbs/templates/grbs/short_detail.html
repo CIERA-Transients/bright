@@ -7,7 +7,7 @@
 <h1>{{ grb.grb_name }}</h1>
 <div class="row" style="border-bottom-style: solid; width: 100%;overflow: auto">
     <div class="column_top" id=color>
-        <img src=/media/{{ grb.color }} width="100%" height="200%">
+        <img src=/media/{{ grb.color }} width="300" height="300">
     </div>
     <div class="col-sm-2">
         <li><a href="/media/{{ grb.h5 }}"><u>Download Nested Sampling Samples</u></a></li>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="row" display="flex" style="border-bottom-style: solid; width: 100%; overflow: hidden; flex: 1;">
-    <div class="column_individual_page_table">
+    <div class="column_individual_page_table" width="100%" display="flex">
         <h2>GRB and Host Properties</h2>
         <table border="1" class="display table table-responsive" id="smart_table" width="100%">
             <thead>
@@ -176,7 +176,7 @@
         * {{grb.comments}}
     </div>
 
-    <div class="column_individual_page_table">
+    <div class="column_individual_page_table" width="100%" display="flex">
         <h2>Stellar Population Properties</h2>
 
         <table border="1" class="display table table-responsive" id="smart_table" width="100%">
