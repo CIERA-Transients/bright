@@ -31,7 +31,7 @@
         {% for grb in alphabetical_grbs_list %}
             <tr class="grb">
                 <td><input type="checkbox" id={{grb.id }}/></td>
-                <td><a href="{% url 'grbs:detail' grb.id %}"><img width="150" height="150" class="thumbImage"  style="display:inline-block; margin:-20; padding:0; border:none" border "0" src=/media/{{ grb.color }}></a><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
+                <td><a href="{% url 'grbs:detail' grb.id %}"><img width="150" height="150" class="thumbImage"  style="display:inline-block; padding:0; border:none" margin "-100" border "0" src=/media/{{ grb.color }}></a><a href="{% url 'grbs:detail' grb.id %}">{{ grb.grb_name }}</a></td>
                 <td> {{ grb.ra_host }}</td>
                 <td> {{ grb.dec_host }}</td>
                 <td> {{grb.z}} </td>
