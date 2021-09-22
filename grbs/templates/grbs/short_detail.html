@@ -3,10 +3,10 @@
 {% block content %}
 
 <main style="background: white;">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <h1>{{ grb.grb_name }}</h1>
 <div class="row" style="border-bottom-style: solid;">
+    <div style="width: 100%;overflow: hidden;">
     <div class="column_top" id=color>
         <img src=/media/{{ grb.color }} width="200" height="200">
     </div>
@@ -19,6 +19,7 @@
 
 
 <div class="row" style="border-bottom-style: solid;">
+    <div style="width: 100%;overflow: hidden;">
     <div class="column_individual_page_images">
         <div id=sed class="img-container">
             <img src=/media/{{ grb.sed }}  alt="SED" style="width:100%">
@@ -32,6 +33,7 @@
 </div>
 
 <div class="row" display="flex" style="border-bottom-style: solid;">
+    <div style="width: 100%;overflow: hidden;">
     <div class="column_individual_page_table">
         <h2>GRB and Host Properties</h2>
         <table border="1" class="table table-striped" id="samples">
