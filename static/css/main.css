@@ -58,7 +58,7 @@ header > nav {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-// max-width: 1200px;
+// max-width: 600px;
   margin: 0 auto;
 }
 
@@ -86,7 +86,7 @@ header > nav > li > a:active, header > nav > li > a:visited {
 }
 
 main {
-  //max-width: 1500px;
+  //max-width: 600px;
   //margin: 0 auto;
   //padding: 1em;
 }
