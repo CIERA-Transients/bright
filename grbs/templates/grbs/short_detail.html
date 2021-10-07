@@ -81,14 +81,18 @@
 
                 <tr style="text-align: left;">
                     <td>$$z^{*}$$</td>
-                    <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
+                    {% if grb.z_err_upper is not None %}
+                        <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
+                    {% else %}
+                        <td> \({{grb.z}})</td>
+                    {% endif %}
                     <td>$$-$$</td>
                     <td>$$-$$</td>
                 </tr>
 
                 <tr style="text-align: left;">
                     <td>$$T_{90}$$</td>
-                    <td> \({{grb.t90}}^{ + {{ grb.t90_err_upper }} }_{ {{ grb.t90_err_lower }} }\)</td>
+                    <td> \({{grb.t90}}\)</td>
                     <td>$$-$$</td>
                     <td>$$-$$</td>
                 </tr>
