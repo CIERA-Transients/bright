@@ -84,7 +84,7 @@
                     {% if grb.z_err_upper is not None %}
                         <td> \({{grb.z}}^{ + {{ grb.z_err_upper }} }_{ {{ grb.z_err_lower }} }\)</td>
                     {% else %}
-                        <td> \({{grb.z}})</td>
+                        <td> \({{ grb.z }}\)</td>
                     {% endif %}
                     <td>$$-$$</td>
                     <td>$$-$$</td>
@@ -92,7 +92,7 @@
 
                 <tr style="text-align: left;">
                     <td>$$T_{90}$$</td>
-                    <td> \({{grb.t90}}\)</td>
+                    <td> \({{ grb.t90 }}\)</td>
                     <td>$$-$$</td>
                     <td>$$-$$</td>
                 </tr>
