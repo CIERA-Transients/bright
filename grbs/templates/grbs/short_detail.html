@@ -31,7 +31,7 @@
 </div>
 
 <div class="row" display="flex" style="border-bottom-style: solid; width: 100%; overflow: auto; flex: 2;">
-    <div class="column_individual_page_table" width="100%" display="flex">
+    <div class="column_individual_page_table" width="100%" display="flex-shrink">
         <table border="1" class="display table table-responsive" id="smart_table" width="100%">
             <thead>
                 <th colspan="4">
@@ -178,12 +178,16 @@
                     <td>$$-$$</td>
                     <td>$$-$$</td>
                 </tr>
-
+                <thead>
+                <th colspan="4">
+                <h4>* {{grb.comments}}</h3>
+                </th>
+            </thead>
            </tbody>
         </table>
-        * {{grb.comments}}
+        
     </div>
-    <div class="column_individual_page_table" width="100%" display="flex">
+    <div class="column_individual_page_table" width="100%" display="flex-shrink">
         <table border="1" class="display table table-responsive" id="smart_table" width="100%">
             <thead>
                 <th colspan="2">
