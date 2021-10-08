@@ -31,9 +31,13 @@
 </div>
 
 <div class="row" display="flex" style="border-bottom-style: solid; width: 100%; overflow: hidden; flex: 1;">
-    <h2>GRB and Host Properties</h2>
     <div class="column_individual_page_table" width="100%" display="flex">
         <table border="1" class="display table table-responsive" id="smart_table" width="100%">
+            <thead>
+                <th colspan="3">
+                <h3><br>GRB and Host Properties</h3>
+                </th>
+            </thead>
             <thead>
                 <th>Attribute</th>
                 <th>Values</th>
@@ -179,8 +183,12 @@
         </table>
         * {{grb.comments}}
     </div>
-        <h2>Stellar Population Properties</h2>
         <table border="1" class="display table table-responsive" id="smart_table" width="100%">
+            <thead>
+                <th colspan="2">
+                <h3><br>Stellar Population Properties</h3>
+                </th>
+            </thead>
             <thead>
                 <th>Attribute</th>
                 <th>Values</th>
@@ -205,7 +213,7 @@
                 </tr>
 
               <tr style="text-align: left;">
-                    <td>$$\textrm{Offset}$$</td>
+                    <td>$$\textrm{Offset (arcsec)}$$</td>
                     <td> \({{grb.offset}}^{ + {{ grb.offset_err_upper }} }_{ {{ grb.offset_err_lower }} }\)</td>
                 </tr>
 
@@ -278,7 +286,7 @@
                 </tr>
 
                 <tr style="text-align: left;">
-                    <td>$$\textrm{GAS} \log(Z/Z_{\odot})$$</td>
+                    <td>$$\log(Z_{\textrm{GAS}}/Z_{\odot})$$</td>
                     {% if grb.gas_logz is not None %}
                         <td> \({{grb.gas_logz}}^{ + {{ grb.gas_logz_err_upper }} }_{ {{ grb.gas_logz_err_lower }} }\)</td>
                     {% else %}
