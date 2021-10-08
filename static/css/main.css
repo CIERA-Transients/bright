@@ -35,7 +35,7 @@ table {
 .column_individual_page_table {
   float: left;
   width: 45.0%;
-  padding: 50px;
+  padding: 20px;
   display: flex;
   flex-direction: row;
 }
@@ -58,7 +58,7 @@ header > nav {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-// max-width: 600px;
+// max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -86,7 +86,7 @@ header > nav > li > a:active, header > nav > li > a:visited {
 }
 
 main {
-  //max-width: 600px;
+  //max-width: 1000px;
   //margin: 0 auto;
   //padding: 1em;
 }
@@ -116,7 +116,7 @@ label {
     display: block;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
   header > nav {
     flex-direction: column;
   }
