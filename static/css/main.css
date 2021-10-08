@@ -82,7 +82,7 @@ header > nav > li > a:focus, header > nav > li > a:hover {
 }
 
 header > nav > li > a:active, header > nav > li > a:visited {
-  color: white;
+  color: black;
 }
 
 main {
@@ -116,7 +116,7 @@ label {
     display: block;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 2000px) {
   header > nav {
     flex-direction: column;
   }
