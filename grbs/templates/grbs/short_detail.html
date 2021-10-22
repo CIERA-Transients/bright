@@ -136,10 +136,10 @@
                         {% else %}
                             <td>$$\textrm{ {{filters}} }$$</td>
                         {% endif %}
-                        {% if {{phot_err}} != 0.0 %}
+                        {% if {{ phot_err }} != 0.0 %}
                             <td> \({{phot}}^{ + {{ phot_err }} }_{ -{{ phot_err }} }\)</td>
                         {% else %}
-                            <td> \($$>$${{phot}}\)</td>
+                            <td> \({{ phot }}\)</td>
                         {% endif %}
                         <td>$$\textrm{ {{phot_tel}} }$$</td>
                         {% if references|length > 0  %}
