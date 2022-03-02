@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     # third party plugins
     'ckeditor',
     'ckeditor_uploader',
+    'django_cleanup.apps.CleanupConfig', # should be placed after your apps
     #'sslserver',
     'allauth',
     'allauth.account',
