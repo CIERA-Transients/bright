@@ -22,16 +22,22 @@ def lgrb(request):
 @user_passes_test(lambda u: u.is_superuser)
 def detail(request, grb_id):
     grb = get_object_or_404(GRB, pk=grb_id)
-    fits_files = Fits.objects.filter(grb=grb_id) 
+    fits_files = Fits.objects.filter(grb=grb_id)
     references = Reference.objects.filter(grb=grb_id)
     references_dict = {}
     for ref in references:
         references_dict[ref.shorthand] = ref.url
+    
+    fits_file_matched_to_filters = len(grb.filters)*[None]
+    for fits in fits_files:
+        filter_from_filename = fits.fits.name.split("_")[-1].replace(".fits","")
+        if filter_from_filename in grb.filters:
+            for index, opt_filter in enumerate(grb.filters):
+                if filter_from_filename == opt_filter:
+                    fits_file_matched_to_filters[index] = fits
+                    break
 
-    if not fits_files:
-        phot_zip = zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, len(grb.filters)*[None])
-    else:
-        phot_zip = zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, fits_files)
+    phot_zip = zip(grb.phot, grb.phot_err, grb.telescopes, grb.phot_refs, grb.filters, fits_file_matched_to_filters)
 
     if grb.type_grb == "short":
         return render(request, 'grbs/short_detail.html', {'grb': grb, 'phot_zip' : phot_zip, 'references': references_dict})
